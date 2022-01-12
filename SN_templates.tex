@@ -186,18 +186,7 @@ Now suppose we get another tranche of data. There are \textbf{60} subjects in th
 Combining the two datasets, we have a total of \textbf{159} subjects (Table \ref{tab:show-table}). The revised average metabolite concentration is \textbf{185.28} (range: \textbf{77}-\textbf{299}). We now have \textbf{55} subjects in Group 1, \textbf{60} subjects in Group 2, and \textbf{44} in Group 3.
 
 \hypertarget{sec:2}{%
-\subsection{Plotting the data}\label{sec:2}}
-
-As Rmarkdown documents can do anything R can do, we can also create and include figures. Here we plot boxplots of our clinical trial data. The data are shown in Figure \ref{fig:plot-data}. Note that this figure number (as well as the table number above) is automatically generated.
-
-\begin{figure}
-\centering
-\includegraphics{SN_templates_files/figure-latex/plot-data-1.pdf}
-\caption{\label{fig:plot-data}Metabolite concentration of clinical trial subjects}
-\end{figure}
-
-\hypertarget{sec:3}{%
-\subsection{Data tables}\label{sec:3}}
+\subsection{Data tables}\label{sec:2}}
 
 \begin{table}
 
@@ -274,20 +263,55 @@ ID\_53 & Group 2 & 237 & | & ID\_106 & Group 1 & 120 & | & ID\_159 & Group 2 & 2
 \end{tabular}
 \end{table}
 
-\hypertarget{methods}{%
-\section{Methods}\label{methods}}
+\hypertarget{sec:3}{%
+\subsection{Plotting the data}\label{sec:3}}
 
-The following code was used to load, merge, and plot the clinical trial data (these data were simulated):
+We can also create and include figures during manuscript creation. Here we plot boxplots of our clinical trial data. The data are shown in Figure \ref{fig:plot-data}. Note that this figure number (as well as the table number above) is automatically generated.
+
+\begin{figure}
+\centering
+\includegraphics{SN_templates_files/figure-latex/plot-data-1.pdf}
+\caption{\label{fig:plot-data}Metabolite concentration of clinical trial subjects}
+\end{figure}
+
+\hypertarget{code}{%
+\section{Code}\label{code}}
+
+The following code was used to load, merge, and plot the (simulated) clinical trial data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# load libraries}
 \FunctionTok{library}\NormalTok{(tidyverse)}
 \FunctionTok{library}\NormalTok{(ggbeeswarm)}
+\FunctionTok{library}\NormalTok{(bookdown)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# read in some initial data}
 \NormalTok{df1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}example{-}data{-}1.csv\textquotesingle{}}\NormalTok{)}
-\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}example{-}data{-}2.csv\textquotesingle{}}\NormalTok{)}
-\NormalTok{final\_data }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(df1, df2)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# read new dataset}
+\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}example{-}data{-}2.csv\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# merge datasets}
+\NormalTok{final\_data }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(df1, df2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# plot the data}
 \NormalTok{final\_data }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ class, }\AttributeTok{y =}\NormalTok{ conc, }\AttributeTok{color =}\NormalTok{ class)) }\SpecialCharTok{+}
   \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
