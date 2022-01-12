@@ -1,0 +1,294 @@
+% !TeX program = pdfLaTeX
+\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+%\documentclass[twocolumn]{svjour3}          % twocolumn
+%
+\smartqed  % flush right qed marks, e.g. at end of proof
+%
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
+\usepackage[hyphens]{url} % not crucial - just used below for the URL
+\usepackage{hyperref}
+
+%
+% \usepackage{mathptmx}      % use Times fonts if available on your TeX system
+%
+% insert here the call for the packages your document requires
+%\usepackage{latexsym}
+% etc.
+%
+% please place your own definitions here and don't use \def but
+% \newcommand{}{}
+%
+% Insert the name of "your journal" with
+% \journalname{myjournal}
+%
+
+%% load any required packages here
+
+
+% Pandoc syntax highlighting
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% From pandoc table feature
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+
+% Pandoc citation processing
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\usepackage{booktabs}
+\begin{document}
+
+
+\title{My Example Computed Manuscript }
+ \subtitle{Created in Rmarkdown} 
+
+    \titlerunning{Example computed manuscript}
+
+\author{  Jeffrey M. Perkel \and  }
+
+
+\institute{
+        Jeffrey M. Perkel \at
+     Springer Nature, 1 New York Plaza, New York, NY \\
+     \email{\href{mailto:jeffrey.perkel@nature.com}{\nolinkurl{jeffrey.perkel@nature.com}}}  %  \\
+%             \emph{Present address:} of F. Author  %  if needed
+    \and
+    }
+
+\date{Received: date / Accepted: date}
+% The correct dates will be entered by the editor
+
+
+\maketitle
+
+\begin{abstract}
+A mock computed manuscript created in RStudio using \{Rmarkdown\}. The \{Bookdown\} and \{Rticles\} packages were used to output the text in Springer Nature's desired manuscript format.
+\\
+\keywords{
+    }
+
+
+\end{abstract}
+
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+\hypertarget{intro}{%
+\section{Introduction}\label{intro}}
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see \url{http://rmarkdown.rstudio.com}.
+
+Here we'll add some references from Zotero (Perkel 2020): (Fisch et al. 2015; Argelaguet et al. 2021; Lê Cao et al. 2021).
+
+Markdown documents can include inline equations written in \LaTeX, such as \(F = ma\). Here is an equation on its own line:
+
+\[a^2 + b^2 = c^2\]
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\hypertarget{sec:1}{%
+\subsection{Inline computation}\label{sec:1}}
+
+One `killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to type them in. That circumvents the problems that can occur if an author makes a mistake in inputting numbers or forgets to update them, for instance, after new data have been folded into the calculations.
+
+Suppose we go to the market and purchase some fruit, and save the data in a spreadsheet. (Table \ref{tab:fruit-basket}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# create a mock spreadsheet}
+\NormalTok{fruit\_basket }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{type,}\SpecialCharTok{\textasciitilde{}}\NormalTok{count,}\SpecialCharTok{\textasciitilde{}}\NormalTok{unit\_price,}
+  \StringTok{"apple"}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{,}
+  \StringTok{"banana"}\NormalTok{,}\DecValTok{12}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}
+  \StringTok{"cantaloupe"}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}
+  \StringTok{"honeydew"}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}
+  \StringTok{"orange"}\NormalTok{,}\DecValTok{7}\NormalTok{,}\FloatTok{0.75}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{total =}\NormalTok{ count }\SpecialCharTok{*}\NormalTok{ unit\_price)}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(fruit\_basket, }\AttributeTok{format =} \StringTok{\textquotesingle{}latex\textquotesingle{}}\NormalTok{, }\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }
+             \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Type"}\NormalTok{, }\StringTok{"Count"}\NormalTok{, }\StringTok{"Price"}\NormalTok{, }\StringTok{"Total"}\NormalTok{),}
+             \AttributeTok{align =} \StringTok{\textquotesingle{}lccr\textquotesingle{}}\NormalTok{, }\CommentTok{\# left, center, center, right}
+             \AttributeTok{caption =} \StringTok{"Our fruit basket"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:fruit-basket}Our fruit basket}
+\centering
+\begin{tabular}[t]{lccr}
+\toprule
+Type & Count & Price & Total\\
+\midrule
+apple & 5 & 1.00 & 5.00\\
+banana & 12 & 0.50 & 6.00\\
+cantaloupe & 2 & 2.00 & 4.00\\
+honeydew & 2 & 3.00 & 6.00\\
+orange & 7 & 0.75 & 5.25\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Rather than hard-coding the numbers from our purchase directly in the text, we can use the programming language \texttt{R} to fill those numbers in for us. For instance, the text: ``We purchased \texttt{\textasciigrave{}r\ sum(fruit\_basket\$count)\textasciigrave{}} pieces of fruit\ldots{}'' produces the output: ``We purchased 28 pieces of fruit\ldots{}.'' That way, if we make any additional purchases, we can update our manuscript automatically.
+
+In the following text, computed values are indicated in \textbf{bold type}: We purchased \textbf{5} types of fruit at the grocery store. We purchased \textbf{28} pieces in all, including \textbf{12} bananas and \textbf{5} apples. The total cost was \textbf{\$26.25}.
+
+\hypertarget{sec:2}{%
+\subsection{The Fibonacci sequence}\label{sec:2}}
+
+\begin{figure}
+\centering
+\includegraphics{SN_templates_files/figure-latex/fibonacci-1.pdf}
+\caption{\label{fig:fibonacci}The first 26 numbers of the Fibonacci sequence}
+\end{figure}
+
+We calculated the first \textbf{26} numbers in the Fibonacci sequence. The data are shown in Figure \ref{fig:fibonacci}. (See the code listing in Section \ref{methods}.) Note that this figure number (as well as the table number above) is automatically generated.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+The following code was used in section \ref{sec:2}, to calculate and plot the Fibonacci sequence:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate the first \textasciigrave{}n\textasciigrave{} Fibonacci numbers}
+\NormalTok{fibonacci }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(n) \{}
+  \FunctionTok{stopifnot}\NormalTok{(n }\SpecialCharTok{\textgreater{}} \DecValTok{2}\NormalTok{)}
+\NormalTok{  ar }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n)}
+\NormalTok{  ar[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ f1 }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{  ar[}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ f2 }\OtherTok{\textless{}{-}} \DecValTok{1}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\NormalTok{n) \{}
+\NormalTok{    f3 }\OtherTok{\textless{}{-}}\NormalTok{ f1 }\SpecialCharTok{+}\NormalTok{ f2}
+\NormalTok{    ar[i] }\OtherTok{\textless{}{-}}\NormalTok{ f3}
+\NormalTok{    f1 }\OtherTok{\textless{}{-}}\NormalTok{ f2}
+\NormalTok{    f2 }\OtherTok{\textless{}{-}}\NormalTok{ f3}
+\NormalTok{  \}}
+  \FunctionTok{return}\NormalTok{ (ar)}
+\NormalTok{\}}
+
+\NormalTok{ncalc }\OtherTok{\textless{}{-}} \DecValTok{26}
+\NormalTok{f }\OtherTok{\textless{}{-}} \FunctionTok{fibonacci}\NormalTok{(ncalc)}
+
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{26}\NormalTok{, f)}
+\FunctionTok{names}\NormalTok{(df) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{,}\StringTok{"y"}\NormalTok{)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y), }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x, y), }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Sequence No."}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Fibonacci No."}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-argelaguet_computational_2021}{}%
+Argelaguet, Ricard, Anna S. E. Cuomo, Oliver Stegle, and John C. Marioni. 2021. {``Computational Principles and Challenges in Single-Cell Data Integration.''} \emph{Nature Biotechnology}, May, 1--14. \url{https://doi.org/10.1038/s41587-021-00895-7}.
+
+\leavevmode\hypertarget{ref-fisch_omics_2015}{}%
+Fisch, K. M., T. Meissner, L. Gioia, J.-C. Ducom, T. M. Carland, S. Loguercio, and A. I. Su. 2015. {``Omics {Pipe}: A Community-Based Framework for Reproducible Multi-Omics Data Analysis.''} \emph{Bioinformatics} 31 (11): 1724--28. \url{https://doi.org/10.1093/bioinformatics/btv061}.
+
+\leavevmode\hypertarget{ref-le_cao_community-wide_2021}{}%
+Lê Cao, Kim-Anh, Al J. Abadi, Emily F. Davis-Marcisak, Lauren Hsu, Arshi Arora, Alexis Coullomb, Atul Deshpande, et al. 2021. {``Community-Wide Hackathons to Identify Central Themes in Single-Cell Multi-Omics.''} \emph{Genome Biology} 22 (1): 220. \url{https://doi.org/10.1186/s13059-021-02433-9}.
+
+\leavevmode\hypertarget{ref-perkel2020}{}%
+Perkel, Jeffrey M. 2020. {``Streamline Your Writing {{}} and Collaborations {{}} with These Reference Managers.''} \emph{Nature} 585 (7823): 149--50. \url{https://doi.org/10.1038/d41586-020-02491-2}.
+
+\end{CSLReferences}
+
+
+\bibliographystyle{spbasic}
+\bibliography{bibliography.bib}
+
+
+\end{document}

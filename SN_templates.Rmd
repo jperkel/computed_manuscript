@@ -1,0 +1,113 @@
+---
+title: My Example Computed Manuscript
+subtitle: Created in Rmarkdown
+titlerunning: Example computed manuscript
+
+authors: 
+- name: Jeffrey M. Perkel
+  address: Springer Nature, 1 New York Plaza, New York, NY
+  email: jeffrey.perkel@nature.com
+  
+abstract: |
+  A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown} and {Rticles} packages were used to output the text in Springer Nature's desired manuscript format. 
+
+bibliography: bibliography.bib
+biblio-style: spbasic
+# bibstyle options spbasic(default), spphys, spmpsci
+output: 
+  bookdown::pdf_book:
+    base_format: rticles::springer_article
+    extra_dependencies: ["booktabs"]
+---
+
+```{r load-libraries, message=FALSE, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(tibble)
+library(ggplot2)
+library(bookdown)
+```
+
+# Introduction {#intro}
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+Here we'll add some references from Zotero [@perkel2020]: [@fisch_omics_2015; @argelaguet_computational_2021; @le_cao_community-wide_2021].
+
+Markdown documents can include inline equations written in \LaTeX, such as $F = ma$. Here is an equation on its own line:
+
+$$a^2 + b^2 = c^2$$
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+# Results {#results}
+
+## Inline computation {#sec:1}
+
+One 'killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to type them in. That circumvents the problems that can occur if an author makes a mistake in inputting numbers or forgets to update them, for instance, after new data have been folded into the calculations.  
+
+Suppose we go to the market and purchase some fruit, and save the data in a spreadsheet. (Table \@ref(tab:fruit-basket)). 
+
+```{r fruit-basket}
+# create a mock spreadsheet
+fruit_basket <- tribble(
+  ~type,~count,~unit_price,
+  "apple",5,1,
+  "banana",12,0.5,
+  "cantaloupe",2,2,
+  "honeydew",2,3,
+  "orange",7,0.75) %>%
+  mutate(total = count * unit_price)
+knitr::kable(fruit_basket, format = 'latex', booktabs = TRUE, 
+             col.names = c("Type", "Count", "Price", "Total"),
+             align = 'lccr', # left, center, center, right
+             caption = "Our fruit basket")
+```
+
+Rather than hard-coding the numbers from our purchase directly in the text, we can use the programming language `R` to fill those numbers in for us.  For instance, the text: "We purchased `` `r
+sum(fruit_basket$count)` `` pieces of fruit..." produces the output: "We purchased `r sum(fruit_basket$count)` pieces of fruit...". That way, if we make any additional purchases, we can update our manuscript automatically.
+
+In the following text, computed values are indicated in **bold type**: We purchased **`r length(unique(fruit_basket$type))`** types of fruit at the grocery store. We purchased **`r sum(fruit_basket$count)`** pieces in all, including **`r fruit_basket %>% filter(type == 'banana') %>% pull(count)`** bananas and **`r fruit_basket %>% filter(type == 'apple') %>% pull(count)`** apples. The total cost was **$`r sum(fruit_basket$total)`**.
+
+## The Fibonacci sequence {#sec:2}
+
+```{r fibonacci, echo=FALSE, fig.cap="The first 26 numbers of the Fibonacci sequence", fig.height=3, fig.width=4}
+# calculate the first `n` Fibonacci numbers
+fibonacci <- function(n) {
+  stopifnot(n > 2)
+  ar <- rep(0, n)
+  ar[1] <- f1 <- 0
+  ar[2] <- f2 <- 1
+  for (i in 3:n) {
+    f3 <- f1 + f2
+    ar[i] <- f3
+    f1 <- f2
+    f2 <- f3
+  }
+  return (ar)
+}
+
+ncalc <- 26
+f <- fibonacci(ncalc)
+
+df <- data.frame(1:26, f)
+names(df) <- c("x","y")
+p <- ggplot(df) +
+  geom_line(aes(x = x, y = y), color = "red") +
+  geom_point(aes(x, y), color = "blue") +
+  xlab("Sequence No.") +
+  ylab("Fibonacci No.") + 
+  theme_minimal()
+p
+```
+
+We calculated the first **`r ncalc`** numbers in the Fibonacci sequence. The data are shown in Figure \@ref(fig:fibonacci). (See the code listing in Section \ref{methods}.) Note that this figure number (as well as the table number above) is automatically generated. 
+
+# Methods{#methods}
+
+The following code was used in section \ref{sec:2}, to calculate and plot the Fibonacci sequence:
+
+```{r show fib-1, eval=FALSE, ref.label='fibonacci'}
+```
+
+# References
