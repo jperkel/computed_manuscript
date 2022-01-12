@@ -53,8 +53,8 @@ For instance, imagine we are analyzing data from a clinical trial:
 n_subjs <- 99
 subjID <- 1:n_subjs
 
-# generate 99 random #s between 0 and 10
-tmp <- floor(runif(n_subjs, min = 0, max = 10))
+# generate 99 random #s between 1 and 10
+tmp <- floor(runif(n_subjs, min = 1, max = 10))
 # assign those numbers to any of 3 subject groups
 fn <- function(x) { 
   if (x > 7) 'GRP_1' 
@@ -78,7 +78,7 @@ knitr::kable(tmp, format = 'latex', booktabs = TRUE,
              caption = "Original subject data")
 ```
 
-We have **`r nrow(df)`** subjects in our study (Table \@ref(tab:subject-weights)). The average weight is **`r round(mean(df$wt), 2)`** (range: **`r min(df$wt)`**-**`r max(df$wt)`**). (The numbers in **bold face type** are computed values.)
+We have **`r nrow(df)`** subjects in our study (Table \@ref(tab:subject-weights)). The average weight is **`r round(mean(df$wt), 2)`** (range: **`r min(df$wt)`**-**`r max(df$wt)`**). We have **`r df %>% filter(class == 'GRP_1') %>% nrow()`** subjects in Group 1, **`r df %>% filter(class == 'GRP_2') %>% nrow()`** subjects in Group 2, and **`r df %>% filter(class == 'GRP_3') %>% nrow()`** in Group 3. (The numbers in **bold face type** are computed values.)
 
 Now suppose we get another tranche of data:
 ```{r new-data, echo=FALSE}
@@ -110,7 +110,7 @@ There are **`r nrow(df2)`** subjects in this new dataset (Table \@ref(tab:new-da
 final_data <- rbind(df, df2)
 ```
 
-Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average weight is **`r round(mean(final_data$wt), 2)`** (range: **`r min(final_data$wt)`**-**`r max(final_data$wt)`**).
+Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average weight is **`r round(mean(final_data$wt), 2)`** (range: **`r min(final_data$wt)`**-**`r max(final_data$wt)`**). We now have **`r final_data %>% filter(class == 'GRP_1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'GRP_2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'GRP_3') %>% nrow()`** in Group 3.
 
 ## The Fibonacci sequence {#sec:2}
 
