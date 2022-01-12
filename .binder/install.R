@@ -1,7 +1,7 @@
-install.packages(
+install.packages(c(
   "bookdown",
   "ggbeeswarm",
   "knitr",
   "rmarkdown",
-  "tidyverse"
+  "tidyverse")
 )
