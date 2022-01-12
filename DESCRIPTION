@@ -1,0 +1,19 @@
+Type: Compendium
+Package: Computed_manuscript
+Title: Demostrating a Computed Manuscript in Rmarkdown
+Version: 0.0.1
+Authors@R: 
+    person(given = "Jeffrey",
+           family = "Perkel",
+           role = c("aut", "cre"),
+           email = "jeffrey.perkel@nature.com")
+Description: Computed manuscript example
+License: What license it uses
+Depends: 
+    bookdown,
+    ggbeeswarm,
+    knitr,
+    rmarkdown,
+    tidyverse
+Encoding: UTF-8
+LazyData: true
