@@ -87,16 +87,19 @@ fibonacci <- function(n) {
   return (ar)
 }
 
-ncalc <- 26
+ncalc <- 25
 f <- fibonacci(ncalc)
-
-df <- data.frame(1:26, f)
+df <- data.frame(1:ncalc, f)
 names(df) <- c("x","y")
+
+div <- 1000
+
 p <- ggplot(df) +
-  geom_line(aes(x = x, y = y), color = "red") +
-  geom_point(aes(x, y), color = "blue") +
-  xlab("Sequence No.") +
-  ylab("Fibonacci No.") + 
+  geom_line(aes(x, y/div), color = "red") +
+  geom_point(aes(x, y/div), color = "blue") +
+  scale_y_continuous(limits = c(0, max(df$y)/div)) +
+  xlab("") +
+  ylab("Fibonacci No. (thousands)") + 
   theme_minimal()
 p
 ```

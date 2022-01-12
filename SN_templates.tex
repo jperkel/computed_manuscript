@@ -227,7 +227,7 @@ In the following text, computed values are indicated in \textbf{bold type}: We p
 \caption{\label{fig:fibonacci}The first 26 numbers of the Fibonacci sequence}
 \end{figure}
 
-We calculated the first \textbf{26} numbers in the Fibonacci sequence. The data are shown in Figure \ref{fig:fibonacci}. (See the code listing in Section \ref{methods}.) Note that this figure number (as well as the table number above) is automatically generated.
+We calculated the first \textbf{25} numbers in the Fibonacci sequence. The data are shown in Figure \ref{fig:fibonacci}. (See the code listing in Section \ref{methods}.) Note that this figure number (as well as the table number above) is automatically generated.
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -251,16 +251,19 @@ The following code was used in section \ref{sec:2}, to calculate and plot the Fi
   \FunctionTok{return}\NormalTok{ (ar)}
 \NormalTok{\}}
 
-\NormalTok{ncalc }\OtherTok{\textless{}{-}} \DecValTok{26}
+\NormalTok{ncalc }\OtherTok{\textless{}{-}} \DecValTok{25}
 \NormalTok{f }\OtherTok{\textless{}{-}} \FunctionTok{fibonacci}\NormalTok{(ncalc)}
-
-\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{26}\NormalTok{, f)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{ncalc, f)}
 \FunctionTok{names}\NormalTok{(df) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"x"}\NormalTok{,}\StringTok{"y"}\NormalTok{)}
+
+\NormalTok{div }\OtherTok{\textless{}{-}} \DecValTok{1000}
+
 \NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y), }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x, y), }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Sequence No."}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Fibonacci No."}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x, y}\SpecialCharTok{/}\NormalTok{div), }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x, y}\SpecialCharTok{/}\NormalTok{div), }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{max}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{y)}\SpecialCharTok{/}\NormalTok{div)) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Fibonacci No. (thousands)"}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{theme\_minimal}\NormalTok{()}
 \NormalTok{p}
 \end{Highlighting}
