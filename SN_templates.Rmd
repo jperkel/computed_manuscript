@@ -39,15 +39,13 @@ Markdown documents can include inline equations written in \LaTeX, such as $F = 
 
 $$a^2 + b^2 = c^2$$
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
 # Results {#results}
 
 ## Inline computation {#sec:1}
 
 One 'killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to input them manually. That circumvents the possibility that the author will enter an incorrect number, or forget to update them should new data arise. 
 
-For instance, imagine we are analyzing data from a clinical trial:
+For instance, imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured their weights. 
 
 ```{r subject-weights, echo=FALSE}
 # create a mock dataset
@@ -58,8 +56,8 @@ subjID <- 1:n_subjs
 tmp <- floor(runif(n_subjs, min = 1, max = 10))
 # assign those numbers to any of 3 subject groups
 fn <- function(x) { 
-  if (x > 7) 'GRP_1' 
-  else if (x > 5) 'GRP_2' 
+  if (x >= 7) 'GRP_1' 
+  else if (x >= 4) 'GRP_2' 
   else 'GRP_3' 
 }
 subj_class <- sapply(tmp, fn)
@@ -78,6 +76,9 @@ names(tmp) <- c('ID', 'class', 'wt', '|', 'ID', 'class', 'wt',
 knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
              caption = "Original subject data")
 ```
+Rather than analyzing those data programmatically and then copying them into our manuscript, we can use the programming language `R` to do that in the manuscript itself. For instance, to calculate the circumference and area of a circle with radius _r_ = 10, you could write "A = `` `r
+pi * r^2` ``" and  "C = `` `r
+2 * pi * r` ``. Those give A = `r r = 10; round(pi * r^2, 3)` and C = `r r = 10; round(2 * pi * r, 3)`. 
 
 We have **`r nrow(df)`** subjects in our study (Table \@ref(tab:subject-weights)). The average weight is **`r round(mean(df$wt), 2)`** (range: **`r min(df$wt)`**-**`r max(df$wt)`**). We have **`r df %>% filter(class == 'GRP_1') %>% nrow()`** subjects in Group 1, **`r df %>% filter(class == 'GRP_2') %>% nrow()`** subjects in Group 2, and **`r df %>% filter(class == 'GRP_3') %>% nrow()`** in Group 3. (The numbers in **bold face type** are computed values.)
 

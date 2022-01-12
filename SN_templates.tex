@@ -167,8 +167,6 @@ Markdown documents can include inline equations written in \LaTeX, such as \(F =
 
 \[a^2 + b^2 = c^2\]
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
@@ -177,7 +175,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 One `killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to input them manually. That circumvents the possibility that the author will enter an incorrect number, or forget to update them should new data arise.
 
-For instance, imagine we are analyzing data from a clinical trial:
+For instance, imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured their weights.
 
 \begin{table}
 
@@ -187,50 +185,52 @@ For instance, imagine we are analyzing data from a clinical trial:
 \toprule
 ID & class & wt & | & ID & class & wt & | & ID & class & wt\\
 \midrule
-1 & GRP\_2 & 216 & | & 34 & GRP\_1 & 80 & | & 67 & GRP\_3 & 193\\
-2 & GRP\_3 & 193 & | & 35 & GRP\_3 & 174 & | & 68 & GRP\_3 & 259\\
-3 & GRP\_1 & 126 & | & 36 & GRP\_1 & 159 & | & 69 & GRP\_3 & 245\\
-4 & GRP\_3 & 113 & | & 37 & GRP\_3 & 183 & | & 70 & GRP\_1 & 254\\
-5 & GRP\_3 & 154 & | & 38 & GRP\_3 & 210 & | & 71 & GRP\_1 & 164\\
+1 & GRP\_3 & 175 & | & 34 & GRP\_2 & 115 & | & 67 & GRP\_1 & 214\\
+2 & GRP\_3 & 125 & | & 35 & GRP\_2 & 121 & | & 68 & GRP\_3 & 251\\
+3 & GRP\_3 & 120 & | & 36 & GRP\_1 & 131 & | & 69 & GRP\_3 & 227\\
+4 & GRP\_3 & 255 & | & 37 & GRP\_3 & 112 & | & 70 & GRP\_1 & 277\\
+5 & GRP\_2 & 287 & | & 38 & GRP\_1 & 115 & | & 71 & GRP\_3 & 210\\
 \addlinespace
-6 & GRP\_2 & 103 & | & 39 & GRP\_3 & 230 & | & 72 & GRP\_3 & 235\\
-7 & GRP\_1 & 278 & | & 40 & GRP\_3 & 162 & | & 73 & GRP\_2 & 266\\
-8 & GRP\_3 & 160 & | & 41 & GRP\_3 & 104 & | & 74 & GRP\_3 & 112\\
-9 & GRP\_1 & 222 & | & 42 & GRP\_3 & 192 & | & 75 & GRP\_1 & 121\\
-10 & GRP\_2 & 242 & | & 43 & GRP\_3 & 281 & | & 76 & GRP\_3 & 172\\
+6 & GRP\_1 & 184 & | & 39 & GRP\_3 & 82 & | & 72 & GRP\_2 & 142\\
+7 & GRP\_2 & 209 & | & 40 & GRP\_2 & 248 & | & 73 & GRP\_3 & 153\\
+8 & GRP\_1 & 227 & | & 41 & GRP\_3 & 91 & | & 74 & GRP\_1 & 275\\
+9 & GRP\_2 & 272 & | & 42 & GRP\_1 & 136 & | & 75 & GRP\_2 & 123\\
+10 & GRP\_2 & 204 & | & 43 & GRP\_3 & 229 & | & 76 & GRP\_2 & 295\\
 \addlinespace
-11 & GRP\_3 & 242 & | & 44 & GRP\_1 & 142 & | & 77 & GRP\_3 & 132\\
-12 & GRP\_1 & 230 & | & 45 & GRP\_3 & 259 & | & 78 & GRP\_3 & 241\\
-13 & GRP\_2 & 254 & | & 46 & GRP\_2 & 125 & | & 79 & GRP\_1 & 294\\
-14 & GRP\_3 & 175 & | & 47 & GRP\_1 & 238 & | & 80 & GRP\_2 & 225\\
-15 & GRP\_2 & 231 & | & 48 & GRP\_3 & 213 & | & 81 & GRP\_3 & 131\\
+11 & GRP\_1 & 109 & | & 44 & GRP\_3 & 96 & | & 77 & GRP\_1 & 256\\
+12 & GRP\_3 & 295 & | & 45 & GRP\_2 & 274 & | & 78 & GRP\_1 & 259\\
+13 & GRP\_2 & 80 & | & 46 & GRP\_1 & 260 & | & 79 & GRP\_2 & 199\\
+14 & GRP\_2 & 157 & | & 47 & GRP\_2 & 94 & | & 80 & GRP\_3 & 161\\
+15 & GRP\_3 & 159 & | & 48 & GRP\_1 & 269 & | & 81 & GRP\_3 & 80\\
 \addlinespace
-16 & GRP\_1 & 132 & | & 49 & GRP\_3 & 163 & | & 82 & GRP\_3 & 99\\
-17 & GRP\_3 & 213 & | & 50 & GRP\_3 & 154 & | & 83 & GRP\_3 & 287\\
-18 & GRP\_3 & 93 & | & 51 & GRP\_3 & 175 & | & 84 & GRP\_2 & 217\\
-19 & GRP\_1 & 212 & | & 52 & GRP\_2 & 188 & | & 85 & GRP\_3 & 245\\
-20 & GRP\_3 & 91 & | & 53 & GRP\_3 & 290 & | & 86 & GRP\_3 & 228\\
+16 & GRP\_1 & 180 & | & 49 & GRP\_2 & 113 & | & 82 & GRP\_1 & 131\\
+17 & GRP\_2 & 297 & | & 50 & GRP\_2 & 104 & | & 83 & GRP\_3 & 189\\
+18 & GRP\_1 & 258 & | & 51 & GRP\_1 & 190 & | & 84 & GRP\_1 & 126\\
+19 & GRP\_2 & 105 & | & 52 & GRP\_1 & 131 & | & 85 & GRP\_1 & 170\\
+20 & GRP\_1 & 207 & | & 53 & GRP\_1 & 182 & | & 86 & GRP\_1 & 108\\
 \addlinespace
-21 & GRP\_3 & 229 & | & 54 & GRP\_3 & 160 & | & 87 & GRP\_3 & 136\\
-22 & GRP\_3 & 284 & | & 55 & GRP\_1 & 115 & | & 88 & GRP\_1 & 211\\
-23 & GRP\_3 & 198 & | & 56 & GRP\_3 & 231 & | & 89 & GRP\_1 & 109\\
-24 & GRP\_1 & 110 & | & 57 & GRP\_1 & 275 & | & 90 & GRP\_2 & 178\\
-25 & GRP\_1 & 226 & | & 58 & GRP\_1 & 255 & | & 91 & GRP\_3 & 129\\
+21 & GRP\_1 & 187 & | & 54 & GRP\_1 & 85 & | & 87 & GRP\_1 & 279\\
+22 & GRP\_1 & 88 & | & 55 & GRP\_3 & 239 & | & 88 & GRP\_1 & 147\\
+23 & GRP\_3 & 236 & | & 56 & GRP\_2 & 205 & | & 89 & GRP\_3 & 187\\
+24 & GRP\_2 & 293 & | & 57 & GRP\_1 & 157 & | & 90 & GRP\_2 & 93\\
+25 & GRP\_1 & 121 & | & 58 & GRP\_3 & 262 & | & 91 & GRP\_2 & 182\\
 \addlinespace
-26 & GRP\_3 & 202 & | & 59 & GRP\_3 & 164 & | & 92 & GRP\_3 & 94\\
-27 & GRP\_3 & 163 & | & 60 & GRP\_3 & 195 & | & 93 & GRP\_3 & 262\\
-28 & GRP\_2 & 106 & | & 61 & GRP\_2 & 250 & | & 94 & GRP\_2 & 281\\
-29 & GRP\_1 & 207 & | & 62 & GRP\_3 & 80 & | & 95 & GRP\_3 & 279\\
-30 & GRP\_2 & 140 & | & 63 & GRP\_3 & 280 & | & 96 & GRP\_3 & 216\\
+26 & GRP\_3 & 97 & | & 59 & GRP\_2 & 227 & | & 92 & GRP\_1 & 91\\
+27 & GRP\_2 & 192 & | & 60 & GRP\_2 & 255 & | & 93 & GRP\_2 & 95\\
+28 & GRP\_2 & 204 & | & 61 & GRP\_2 & 110 & | & 94 & GRP\_3 & 288\\
+29 & GRP\_1 & 287 & | & 62 & GRP\_2 & 130 & | & 95 & GRP\_3 & 191\\
+30 & GRP\_2 & 270 & | & 63 & GRP\_1 & 238 & | & 96 & GRP\_1 & 116\\
 \addlinespace
-31 & GRP\_3 & 151 & | & 64 & GRP\_1 & 117 & | & 97 & GRP\_3 & 267\\
-32 & GRP\_3 & 110 & | & 65 & GRP\_2 & 280 & | & 98 & GRP\_1 & 136\\
-33 & GRP\_3 & 214 & | & 66 & GRP\_1 & 97 & | & 99 & GRP\_2 & 93\\
+31 & GRP\_3 & 179 & | & 64 & GRP\_2 & 245 & | & 97 & GRP\_3 & 196\\
+32 & GRP\_3 & 121 & | & 65 & GRP\_1 & 123 & | & 98 & GRP\_2 & 187\\
+33 & GRP\_3 & 237 & | & 66 & GRP\_1 & 152 & | & 99 & GRP\_1 & 289\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-We have \textbf{99} subjects in our study (Table \ref{tab:subject-weights}). The average weight is \textbf{189.41} (range: \textbf{80}-\textbf{294}). We have \textbf{25} subjects in Group 1, \textbf{17} subjects in Group 2, and \textbf{57} in Group 3. (The numbers in \textbf{bold face type} are computed values.)
+Rather than analyzing those data programmatically and then copying them into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. For instance, to calculate the circumference and area of a circle with radius \emph{r} = 10, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}}'' and "C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}. Those give A = 314.159 and C = 62.832.
+
+We have \textbf{99} subjects in our study (Table \ref{tab:subject-weights}). The average weight is \textbf{183.08} (range: \textbf{80}-\textbf{297}). We have \textbf{37} subjects in Group 1, \textbf{33} subjects in Group 2, and \textbf{29} in Group 3. (The numbers in \textbf{bold face type} are computed values.)
 
 Now suppose we get another tranche of data:
 
@@ -242,36 +242,36 @@ Now suppose we get another tranche of data:
 \toprule
 ID & class & wt & | & ID & class & wt & | & ID & class & wt\\
 \midrule
-1 & GRP\_2 & 231 & | & 21 & GRP\_2 & 275 & | & 41 & GRP\_3 & 243\\
-2 & GRP\_1 & 140 & | & 22 & GRP\_2 & 181 & | & 42 & GRP\_3 & 251\\
-3 & GRP\_3 & 91 & | & 23 & GRP\_1 & 104 & | & 43 & GRP\_3 & 246\\
-4 & GRP\_3 & 150 & | & 24 & GRP\_2 & 150 & | & 44 & GRP\_3 & 273\\
-5 & GRP\_2 & 276 & | & 25 & GRP\_3 & 157 & | & 45 & GRP\_2 & 226\\
+1 & GRP\_3 & 250 & | & 21 & GRP\_1 & 254 & | & 41 & GRP\_2 & 93\\
+2 & GRP\_1 & 108 & | & 22 & GRP\_1 & 205 & | & 42 & GRP\_1 & 122\\
+3 & GRP\_1 & 121 & | & 23 & GRP\_1 & 197 & | & 43 & GRP\_3 & 207\\
+4 & GRP\_3 & 284 & | & 24 & GRP\_3 & 90 & | & 44 & GRP\_3 & 256\\
+5 & GRP\_2 & 243 & | & 25 & GRP\_3 & 154 & | & 45 & GRP\_2 & 292\\
 \addlinespace
-6 & GRP\_3 & 265 & | & 26 & GRP\_3 & 110 & | & 46 & GRP\_3 & 285\\
-7 & GRP\_3 & 257 & | & 27 & GRP\_2 & 262 & | & 47 & GRP\_3 & 183\\
-8 & GRP\_3 & 284 & | & 28 & GRP\_3 & 201 & | & 48 & GRP\_3 & 285\\
-9 & GRP\_1 & 261 & | & 29 & GRP\_2 & 175 & | & 49 & GRP\_3 & 265\\
-10 & GRP\_1 & 139 & | & 30 & GRP\_3 & 218 & | & 50 & GRP\_3 & 234\\
+6 & GRP\_1 & 260 & | & 26 & GRP\_2 & 254 & | & 46 & GRP\_1 & 120\\
+7 & GRP\_2 & 297 & | & 27 & GRP\_3 & 251 & | & 47 & GRP\_1 & 144\\
+8 & GRP\_1 & 293 & | & 28 & GRP\_2 & 191 & | & 48 & GRP\_2 & 190\\
+9 & GRP\_3 & 146 & | & 29 & GRP\_3 & 182 & | & 49 & GRP\_3 & 156\\
+10 & GRP\_3 & 244 & | & 30 & GRP\_3 & 103 & | & 50 & GRP\_2 & 114\\
 \addlinespace
-11 & GRP\_3 & 262 & | & 31 & GRP\_1 & 129 & | & 51 & GRP\_1 & 96\\
-12 & GRP\_1 & 225 & | & 32 & GRP\_2 & 142 & | & 52 & GRP\_3 & 118\\
-13 & GRP\_1 & 207 & | & 33 & GRP\_3 & 159 & | & 53 & GRP\_2 & 269\\
-14 & GRP\_2 & 80 & | & 34 & GRP\_1 & 216 & | & 54 & GRP\_2 & 205\\
-15 & GRP\_3 & 243 & | & 35 & GRP\_1 & 220 & | & 55 & GRP\_3 & 162\\
+11 & GRP\_3 & 246 & | & 31 & GRP\_3 & 221 & | & 51 & GRP\_3 & 87\\
+12 & GRP\_2 & 163 & | & 32 & GRP\_3 & 236 & | & 52 & GRP\_1 & 99\\
+13 & GRP\_3 & 101 & | & 33 & GRP\_3 & 210 & | & 53 & GRP\_3 & 288\\
+14 & GRP\_1 & 168 & | & 34 & GRP\_1 & 143 & | & 54 & GRP\_2 & 85\\
+15 & GRP\_2 & 289 & | & 35 & GRP\_2 & 176 & | & 55 & GRP\_1 & 124\\
 \addlinespace
-16 & GRP\_3 & 94 & | & 36 & GRP\_2 & 299 & | & 56 & GRP\_2 & 247\\
-17 & GRP\_3 & 270 & | & 37 & GRP\_3 & 278 & | & 57 & GRP\_3 & 296\\
-18 & GRP\_3 & 235 & | & 38 & GRP\_3 & 284 & | & 58 & GRP\_2 & 195\\
-19 & GRP\_3 & 283 & | & 39 & GRP\_3 & 122 & | & 59 & GRP\_3 & 180\\
-20 & GRP\_3 & 209 & | & 40 & GRP\_2 & 126 & | & 60 & GRP\_1 & 128\\
+16 & GRP\_2 & 166 & | & 36 & GRP\_2 & 243 & | & 56 & GRP\_2 & 89\\
+17 & GRP\_2 & 81 & | & 37 & GRP\_3 & 256 & | & 57 & GRP\_1 & 124\\
+18 & GRP\_3 & 239 & | & 38 & GRP\_2 & 276 & | & 58 & GRP\_1 & 241\\
+19 & GRP\_2 & 149 & | & 39 & GRP\_3 & 155 & | & 59 & GRP\_2 & 221\\
+20 & GRP\_3 & 252 & | & 40 & GRP\_1 & 173 & | & 60 & GRP\_2 & 104\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-There are \textbf{60} subjects in this new dataset (Table \ref{tab:new-data}). Their average weight is \textbf{206.62} (range: \textbf{80}-\textbf{299}).
+There are \textbf{60} subjects in this new dataset (Table \ref{tab:new-data}). Their average weight is \textbf{187.1} (range: \textbf{81}-\textbf{297}).
 
-Combining the two datasets, we have a total of \textbf{159} subjects. The revised average weight is \textbf{195.91} (range: \textbf{80}-\textbf{299}). We now have \textbf{36} subjects in Group 1, \textbf{33} subjects in Group 2, and \textbf{90} in Group 3.
+Combining the two datasets, we have a total of \textbf{159} subjects. The revised average weight is \textbf{184.6} (range: \textbf{80}-\textbf{297}). We now have \textbf{54} subjects in Group 1, \textbf{53} subjects in Group 2, and \textbf{52} in Group 3.
 
 \hypertarget{sec:2}{%
 \subsection{Plotting the data}\label{sec:2}}
@@ -299,8 +299,8 @@ The following code was used in section \ref{sec:1} to create the original clinic
 \NormalTok{tmp }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(}\FunctionTok{runif}\NormalTok{(n\_subjs, }\AttributeTok{min =} \DecValTok{1}\NormalTok{, }\AttributeTok{max =} \DecValTok{10}\NormalTok{))}
 \CommentTok{\# assign those numbers to any of 3 subject groups}
 \NormalTok{fn }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{ }
-  \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{\textgreater{}} \DecValTok{7}\NormalTok{) }\StringTok{\textquotesingle{}GRP\_1\textquotesingle{}} 
-  \ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{\textgreater{}} \DecValTok{5}\NormalTok{) }\StringTok{\textquotesingle{}GRP\_2\textquotesingle{}} 
+  \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{\textgreater{}=} \DecValTok{7}\NormalTok{) }\StringTok{\textquotesingle{}GRP\_1\textquotesingle{}} 
+  \ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{\textgreater{}=} \DecValTok{4}\NormalTok{) }\StringTok{\textquotesingle{}GRP\_2\textquotesingle{}} 
   \ControlFlowTok{else} \StringTok{\textquotesingle{}GRP\_3\textquotesingle{}} 
 \NormalTok{\}}
 \NormalTok{subj\_class }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(tmp, fn)}
