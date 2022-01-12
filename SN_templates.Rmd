@@ -23,7 +23,6 @@ output:
 ```{r load-libraries, message=FALSE, include=FALSE}
 library(dplyr)
 library(magrittr)
-library(tibble)
 library(ggplot2)
 library(stringr)
 library(bookdown)
@@ -56,9 +55,9 @@ subjID <- 1:n_subjs
 tmp <- floor(runif(n_subjs, min = 1, max = 10))
 # assign those numbers to any of 3 subject groups
 fn <- function(x) { 
-  if (x >= 7) 'GRP_1' 
-  else if (x >= 4) 'GRP_2' 
-  else 'GRP_3' 
+  if (x >= 7) 'Group 1' 
+  else if (x >= 4) 'Group 2' 
+  else 'Group 3' 
 }
 subj_class <- sapply(tmp, fn)
 
@@ -80,7 +79,7 @@ Rather than analyzing those data programmatically and then copying them into our
 pi * r^2` ``" and  "C = `` `r
 2 * pi * r` ``. Those give A = `r r = 10; round(pi * r^2, 3)` and C = `r r = 10; round(2 * pi * r, 3)`. 
 
-We have **`r nrow(df)`** subjects in our study (Table \@ref(tab:subject-weights)). The average weight is **`r round(mean(df$wt), 2)`** (range: **`r min(df$wt)`**-**`r max(df$wt)`**). We have **`r df %>% filter(class == 'GRP_1') %>% nrow()`** subjects in Group 1, **`r df %>% filter(class == 'GRP_2') %>% nrow()`** subjects in Group 2, and **`r df %>% filter(class == 'GRP_3') %>% nrow()`** in Group 3. (The numbers in **bold face type** are computed values.)
+We have **`r nrow(df)`** subjects in our study (Table \@ref(tab:subject-weights)). The average weight is **`r round(mean(df$wt), 2)`** (range: **`r min(df$wt)`**-**`r max(df$wt)`**). We have **`r df %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** are computed values.)
 
 Now suppose we get another tranche of data:
 ```{r new-data, echo=FALSE}
@@ -112,7 +111,7 @@ There are **`r nrow(df2)`** subjects in this new dataset (Table \@ref(tab:new-da
 final_data <- rbind(df, df2)
 ```
 
-Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average weight is **`r round(mean(final_data$wt), 2)`** (range: **`r min(final_data$wt)`**-**`r max(final_data$wt)`**). We now have **`r final_data %>% filter(class == 'GRP_1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'GRP_2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'GRP_3') %>% nrow()`** in Group 3.
+Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average weight is **`r round(mean(final_data$wt), 2)`** (range: **`r min(final_data$wt)`**-**`r max(final_data$wt)`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3.
 
 ## Plotting the data {#sec:2}
 
@@ -120,11 +119,9 @@ As Rmarkdown documents can do anything R can do, we can also create and include 
 
 ```{r plot-data, echo=FALSE, fig.cap="Weight distribution of clinical trial subjects", fig.height=3, fig.width=4}
 final_data %>% 
-  mutate(class = str_replace(class, '_', ' '),
-         class = str_replace(class, 'GRP', 'Group')) %>% 
   ggplot(aes(x = class, y = wt, color = class)) +
   geom_boxplot() +
-  geom_point() + 
+  geom_jitter(width = 0.25) + 
   xlab("") +
   ylab("Weight") + 
   theme_minimal() +
