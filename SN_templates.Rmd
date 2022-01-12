@@ -20,11 +20,15 @@ output:
     extra_dependencies: ["booktabs"]
 ---
 
-```{r load-libraries, message=FALSE, include=FALSE}
-library(dplyr)
-library(magrittr)
-library(ggplot2)
-library(stringr)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE)
+```
+
+```{r load-libraries, include=FALSE}
+library(tidyverse)
+library(ggbeeswarm)
 library(bookdown)
 ```
 
@@ -42,104 +46,83 @@ $$a^2 + b^2 = c^2$$
 
 ## Inline computation {#sec:1}
 
-One 'killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to input them manually. That circumvents the possibility that the author will enter an incorrect number, or forget to update them should new data arise. 
+The 'killer feature' of computed manuscripts is their ability to compute and insert values and figures into the text rather than requiring authors to input them manually. That circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. 
 
-For instance, imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured their weights. 
+Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
 
-```{r subject-weights, echo=FALSE}
-# create a mock dataset
-n_subjs <- 99
-subjID <- 1:n_subjs
-
-# generate 99 random #s between 1 and 10
-tmp <- floor(runif(n_subjs, min = 0, max = 9))
-# assign those numbers to any of 3 subject groups
-fn <- function(x) { 
-  if (x >= 6) 'Group 1' 
-  else if (x >= 3) 'Group 2' 
-  else 'Group 3' 
-}
-subj_class <- sapply(tmp, fn)
-
-# pick random weights between 75 and 300
-wts <- floor(runif(n_subjs, min = 75, max = 300))
-# combine the data into a table
-df <- data.frame(ID = subjID, class = subj_class, wt = wts)
-
-# display the table, splitting the 99 rows into 3 cols wide
-tmp <- cbind(df[1:33,], rep('|', 33), 
-             df[34:66,], rep('|', 33), 
-             df[67:99,])
-names(tmp) <- c('ID', 'class', 'wt', '|', 'ID', 'class', 'wt', 
-                '|', 'ID', 'class', 'wt')
-knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
-             caption = "Original subject data")
+```{r initial-data}
+# read in some initial data
+df1 <- read_csv('example-data-1.csv')
 ```
-Rather than analyzing those data and then copying them into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks: `` `r
+
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`: `` `r
 <code to evaluate>` ``. For instance, to calculate the circumference and area of a circle with radius _r_ = 10, you could write "A = `` `r
 pi * r^2` ``" and  "C = `` `r
-2 * pi * r` ``. Those give A = `r r = 10; round(pi * r^2, 3)` and C = `r r = 10; round(2 * pi * r, 3)`. 
+2 * pi * r` ``. Those evaluate to "A = **`r r = 10; round(pi * r^2, 3)`** and C = **`r r = 10; round(2 * pi * r, 3)`**". 
 
-We have **`r nrow(df)`** subjects in our study (Table \@ref(tab:subject-weights)). The average weight is **`r round(mean(df$wt), 2)`** (range: **`r min(df$wt)`**-**`r max(df$wt)`**). We have **`r df %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** are computed values.)
+Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study. The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r min(df1$conc)`**-**`r max(df1$conc)`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
 
-Now suppose we get another tranche of data:
-```{r new-data, echo=FALSE}
-# create a mock dataset
-n_subjs <- 60
-subjID <- 1:n_subjs
-
-# generate 99 random #s between 0 and 10
-tmp <- floor(runif(n_subjs, min = 0, max = 9))
-# convert those numbers into either of 3 subject groups
-subj_class <- sapply(tmp, fn)
-
-wts <- floor(runif(n_subjs, min = 75, max = 300))
-df2 <- data.frame(ID = subjID, class = subj_class, wt = wts)
-
-# display the table, splitting the 99 rows into 3 cols wide
-tmp <- cbind(df2[1:20,], rep('|', 20), 
-             df2[21:40,], rep('|', 20), 
-             df2[41:60,])
-names(tmp) <- c('ID', 'class', 'wt', '|', 'ID', 'class', 'wt', 
-                '|', 'ID', 'class', 'wt')
-knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
-             caption = "New subject data")
+```{r new-data}
+df2 <- read_csv('example-data-2.csv')
 ```
 
-There are **`r nrow(df2)`** subjects in this new dataset (Table \@ref(tab:new-data)). Their average weight is **`r round(mean(df2$wt), 2)`** (range: **`r min(df2$wt)`**-**`r max(df2$wt)`**). 
+Now suppose we get another tranche of data. There are **`r nrow(df2)`** subjects in this new dataset. Their average concentration is **`r round(mean(df2$conc), 2)`** (range: **`r min(df2$conc)`**-**`r max(df2$conc)`**). 
 
-```{r combine-tables, echo=FALSE}
-final_data <- rbind(df, df2)
+```{r combine-tables}
+final_data <- rbind(df1, df2)
 ```
 
-Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average weight is **`r round(mean(final_data$wt), 2)`** (range: **`r min(final_data$wt)`**-**`r max(final_data$wt)`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3.
+Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects (Table \@ref(tab:show-table)). The revised average metabolite concentration is **`r round(mean(final_data$conc), 2)`** (range: **`r min(final_data$conc)`**-**`r max(final_data$conc)`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3.
 
 ## Plotting the data {#sec:2}
 
-As Rmarkdown documents can do anything R can do, we can also create and include figures. Here we plot boxplots of our clinical trial data. The data are shown in Figure \@ref(fig:plot-data). Note that this figure number (as well as the table numbers above) are automatically generated. 
+As Rmarkdown documents can do anything R can do, we can also create and include figures. Here we plot boxplots of our clinical trial data. The data are shown in Figure \@ref(fig:plot-data). Note that this figure number (as well as the table number above) is automatically generated. 
 
-```{r plot-data, echo=FALSE, fig.cap="Weight distribution of clinical trial subjects", fig.height=3, fig.width=4}
+```{r plot-data, fig.cap="Metabolite concentration of clinical trial subjects", fig.height=3, fig.width=4}
 final_data %>% 
-  ggplot(aes(x = class, y = wt, color = class)) +
+  ggplot(aes(x = class, y = conc, color = class)) +
   geom_boxplot() +
-  geom_jitter(width = 0.25) + 
+  ggbeeswarm::geom_quasirandom(width = 0.25) + 
   xlab("") +
-  ylab("Weight") + 
+  ylab("Metabolite concentration") + 
   theme_minimal() +
   theme(legend.position = "none")
 
 ```
 
-# Methods{#methods}
+## Data tables{#sec:3}
 
-The following code was used in section \ref{sec:1} to create the original clinical trial data:
+```{r show-table}
+tmp <- cbind(final_data[1:53,], rep('|', 53), 
+             final_data[54:106,], rep('|', 53), 
+             final_data[107:159,])
+names(tmp) <- c('ID', 'Class', 'Conc', '|', 'ID', 'Class', 'Conc', 
+                '|', 'ID', 'Class', 'Conc')
 
-```{r show-trial-data-1, eval=FALSE, ref.label='subject-weights'}
+knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
+             caption = "Final subject data")
 ```
 
-The following code was used in section \ref{sec:2} to plot the data:
+# Methods{#methods}
 
-```{r show-fib-1, eval=FALSE, ref.label='plot-data'}
+The following code was used to load, merge, and plot the clinical trial data (these data were simulated):
+
+```{r show-code, echo=TRUE, eval=FALSE}
+library(tidyverse)
+library(ggbeeswarm)
+
+df1 <- read_csv('example-data-1.csv')
+df2 <- read_csv('example-data-2.csv')
+final_data <- rbind(df1, df2)
+
+final_data %>% 
+  ggplot(aes(x = class, y = conc, color = class)) +
+  geom_boxplot() +
+  ggbeeswarm::geom_quasirandom(width = 0.25) + 
+  xlab("") +
+  ylab("Metabolite concentration") + 
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
 
 # References
