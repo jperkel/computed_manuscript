@@ -52,11 +52,11 @@ n_subjs <- 99
 subjID <- 1:n_subjs
 
 # generate 99 random #s between 1 and 10
-tmp <- floor(runif(n_subjs, min = 1, max = 10))
+tmp <- floor(runif(n_subjs, min = 0, max = 9))
 # assign those numbers to any of 3 subject groups
 fn <- function(x) { 
-  if (x >= 7) 'Group 1' 
-  else if (x >= 4) 'Group 2' 
+  if (x >= 6) 'Group 1' 
+  else if (x >= 3) 'Group 2' 
   else 'Group 3' 
 }
 subj_class <- sapply(tmp, fn)
@@ -75,7 +75,8 @@ names(tmp) <- c('ID', 'class', 'wt', '|', 'ID', 'class', 'wt',
 knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
              caption = "Original subject data")
 ```
-Rather than analyzing those data programmatically and then copying them into our manuscript, we can use the programming language `R` to do that in the manuscript itself. For instance, to calculate the circumference and area of a circle with radius _r_ = 10, you could write "A = `` `r
+Rather than analyzing those data and then copying them into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks: `` `r
+<code to evaluate>` ``. For instance, to calculate the circumference and area of a circle with radius _r_ = 10, you could write "A = `` `r
 pi * r^2` ``" and  "C = `` `r
 2 * pi * r` ``. Those give A = `r r = 10; round(pi * r^2, 3)` and C = `r r = 10; round(2 * pi * r, 3)`. 
 
@@ -88,7 +89,7 @@ n_subjs <- 60
 subjID <- 1:n_subjs
 
 # generate 99 random #s between 0 and 10
-tmp <- floor(runif(n_subjs, min = 0, max = 10))
+tmp <- floor(runif(n_subjs, min = 0, max = 9))
 # convert those numbers into either of 3 subject groups
 subj_class <- sapply(tmp, fn)
 
