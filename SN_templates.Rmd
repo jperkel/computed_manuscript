@@ -25,6 +25,7 @@ library(dplyr)
 library(magrittr)
 library(tibble)
 library(ggplot2)
+library(stringr)
 library(bookdown)
 ```
 
@@ -112,42 +113,23 @@ final_data <- rbind(df, df2)
 
 Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average weight is **`r round(mean(final_data$wt), 2)`** (range: **`r min(final_data$wt)`**-**`r max(final_data$wt)`**). We now have **`r final_data %>% filter(class == 'GRP_1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'GRP_2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'GRP_3') %>% nrow()`** in Group 3.
 
-## The Fibonacci sequence {#sec:2}
+## Plotting the data {#sec:2}
 
-```{r fibonacci, echo=FALSE, fig.cap="The first 26 numbers of the Fibonacci sequence", fig.height=3, fig.width=4}
-# calculate the first `n` Fibonacci numbers
-fibonacci <- function(n) {
-  stopifnot(n > 2)
-  ar <- rep(0, n)
-  ar[1] <- f1 <- 0
-  ar[2] <- f2 <- 1
-  for (i in 3:n) {
-    f3 <- f1 + f2
-    ar[i] <- f3
-    f1 <- f2
-    f2 <- f3
-  }
-  return (ar)
-}
+As Rmarkdown documents can do anything R can do, we can also create and include figures. Here we plot boxplots of our clinical trial data. The data are shown in Figure \@ref(fig:plot-data). Note that this figure number (as well as the table numbers above) are automatically generated. 
 
-ncalc <- 25
-f <- fibonacci(ncalc)
-df <- data.frame(1:ncalc, f)
-names(df) <- c("x","y")
-
-div <- 1000
-
-p <- ggplot(df) +
-  geom_line(aes(x, y/div), color = "red") +
-  geom_point(aes(x, y/div), color = "blue") +
-  scale_y_continuous(limits = c(0, max(df$y)/div)) +
+```{r plot-data, echo=FALSE, fig.cap="Weight distribution of clinical trial subjects", fig.height=3, fig.width=4}
+final_data %>% 
+  mutate(class = str_replace(class, '_', ' '),
+         class = str_replace(class, 'GRP', 'Group')) %>% 
+  ggplot(aes(x = class, y = wt, color = class)) +
+  geom_boxplot() +
+  geom_point() + 
   xlab("") +
-  ylab("Fibonacci No. (thousands)") + 
-  theme_minimal()
-p
-```
+  ylab("Weight") + 
+  theme_minimal() +
+  theme(legend.position = "none")
 
-As Rmarkdown documents can do anything R can do, we can also create and include figures. For instance, we can calculate the first **`r ncalc`** numbers in the Fibonacci sequence. The data are shown in Figure \@ref(fig:fibonacci). Note that this figure number (as well as the table numbers above) are automatically generated. 
+```
 
 # Methods{#methods}
 
@@ -156,9 +138,9 @@ The following code was used in section \ref{sec:1} to create the original clinic
 ```{r show-trial-data-1, eval=FALSE, ref.label='subject-weights'}
 ```
 
-The following code was used in section \ref{sec:2} to calculate and plot the Fibonacci sequence:
+The following code was used in section \ref{sec:2} to plot the data:
 
-```{r show-fib-1, eval=FALSE, ref.label='fibonacci'}
+```{r show-fib-1, eval=FALSE, ref.label='plot-data'}
 ```
 
 # References
