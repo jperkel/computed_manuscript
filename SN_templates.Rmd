@@ -44,30 +44,73 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Inline computation {#sec:1}
 
-One 'killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to type them in. That circumvents the problems that can occur if an author makes a mistake in inputting numbers or forgets to update them, for instance, after new data have been folded into the calculations.  
+One 'killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to input them manually. That circumvents the possibility that the author will enter an incorrect number, or forget to update them should new data arise. 
 
-Suppose we go to the market and purchase some fruit, and save the data in a spreadsheet. (Table \@ref(tab:fruit-basket)). 
+For instance, imagine we are analyzing data from a clinical trial:
 
-```{r fruit-basket}
-# create a mock spreadsheet
-fruit_basket <- tribble(
-  ~type,~count,~unit_price,
-  "apple",5,1,
-  "banana",12,0.5,
-  "cantaloupe",2,2,
-  "honeydew",2,3,
-  "orange",7,0.75) %>%
-  mutate(total = count * unit_price)
-knitr::kable(fruit_basket, format = 'latex', booktabs = TRUE, 
-             col.names = c("Type", "Count", "Price", "Total"),
-             align = 'lccr', # left, center, center, right
-             caption = "Our fruit basket")
+```{r subject-weights, echo=FALSE}
+# create a mock dataset
+n_subjs <- 99
+subjID <- 1:n_subjs
+
+# generate 99 random #s between 0 and 10
+tmp <- floor(runif(n_subjs, min = 0, max = 10))
+# assign those numbers to any of 3 subject groups
+fn <- function(x) { 
+  if (x > 7) 'GRP_1' 
+  else if (x > 5) 'GRP_2' 
+  else 'GRP_3' 
+}
+subj_class <- sapply(tmp, fn)
+
+# pick random weights between 75 and 300
+wts <- floor(runif(n_subjs, min = 75, max = 300))
+# combine the data into a table
+df <- data.frame(ID = subjID, class = subj_class, wt = wts)
+
+# display the table, splitting the 99 rows into 3 cols wide
+tmp <- cbind(df[1:33,], rep('|', 33), 
+             df[34:66,], rep('|', 33), 
+             df[67:99,])
+names(tmp) <- c('ID', 'class', 'wt', '|', 'ID', 'class', 'wt', 
+                '|', 'ID', 'class', 'wt')
+knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
+             caption = "Original subject data")
 ```
 
-Rather than hard-coding the numbers from our purchase directly in the text, we can use the programming language `R` to fill those numbers in for us.  For instance, the text: "We purchased `` `r
-sum(fruit_basket$count)` `` pieces of fruit..." produces the output: "We purchased `r sum(fruit_basket$count)` pieces of fruit...". That way, if we make any additional purchases, we can update our manuscript automatically.
+We have **`r nrow(df)`** subjects in our study (Table \@ref(tab:subject-weights)). The average weight is **`r round(mean(df$wt), 2)`** (range: **`r min(df$wt)`**-**`r max(df$wt)`**). (The numbers in **bold face type** are computed values.)
 
-In the following text, computed values are indicated in **bold type**: We purchased **`r length(unique(fruit_basket$type))`** types of fruit at the grocery store. We purchased **`r sum(fruit_basket$count)`** pieces in all, including **`r fruit_basket %>% filter(type == 'banana') %>% pull(count)`** bananas and **`r fruit_basket %>% filter(type == 'apple') %>% pull(count)`** apples. The total cost was **$`r sum(fruit_basket$total)`**.
+Now suppose we get another tranche of data:
+```{r new-data, echo=FALSE}
+# create a mock dataset
+n_subjs <- 60
+subjID <- 1:n_subjs
+
+# generate 99 random #s between 0 and 10
+tmp <- floor(runif(n_subjs, min = 0, max = 10))
+# convert those numbers into either of 3 subject groups
+subj_class <- sapply(tmp, fn)
+
+wts <- floor(runif(n_subjs, min = 75, max = 300))
+df2 <- data.frame(ID = subjID, class = subj_class, wt = wts)
+
+# display the table, splitting the 99 rows into 3 cols wide
+tmp <- cbind(df2[1:20,], rep('|', 20), 
+             df2[21:40,], rep('|', 20), 
+             df2[41:60,])
+names(tmp) <- c('ID', 'class', 'wt', '|', 'ID', 'class', 'wt', 
+                '|', 'ID', 'class', 'wt')
+knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
+             caption = "New subject data")
+```
+
+There are **`r nrow(df2)`** subjects in this new dataset (Table \@ref(tab:new-data)). Their average weight is **`r round(mean(df2$wt), 2)`** (range: **`r min(df2$wt)`**-**`r max(df2$wt)`**). 
+
+```{r combine-tables, echo=FALSE}
+final_data <- rbind(df, df2)
+```
+
+Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average weight is **`r round(mean(final_data$wt), 2)`** (range: **`r min(final_data$wt)`**-**`r max(final_data$wt)`**).
 
 ## The Fibonacci sequence {#sec:2}
 
@@ -104,13 +147,18 @@ p <- ggplot(df) +
 p
 ```
 
-We calculated the first **`r ncalc`** numbers in the Fibonacci sequence. The data are shown in Figure \@ref(fig:fibonacci). (See the code listing in Section \ref{methods}.) Note that this figure number (as well as the table number above) is automatically generated. 
+As Rmarkdown documents can do anything R can do, we can also create and include figures. For instance, we can calculate the first **`r ncalc`** numbers in the Fibonacci sequence. The data are shown in Figure \@ref(fig:fibonacci). Note that this figure number (as well as the table numbers above) are automatically generated. 
 
 # Methods{#methods}
 
-The following code was used in section \ref{sec:2}, to calculate and plot the Fibonacci sequence:
+The following code was used in section \ref{sec:1} to create the original clinical trial data:
 
-```{r show fib-1, eval=FALSE, ref.label='fibonacci'}
+```{r show-trial-data-1, eval=FALSE, ref.label='subject-weights'}
+```
+
+The following code was used in section \ref{sec:2} to calculate and plot the Fibonacci sequence:
+
+```{r show-fib-1, eval=FALSE, ref.label='fibonacci'}
 ```
 
 # References

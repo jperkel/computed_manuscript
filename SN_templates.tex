@@ -175,48 +175,103 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \hypertarget{sec:1}{%
 \subsection{Inline computation}\label{sec:1}}
 
-One `killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to type them in. That circumvents the problems that can occur if an author makes a mistake in inputting numbers or forgets to update them, for instance, after new data have been folded into the calculations.
+One `killer feature' of computed manuscripts is the ability to compute and insert values into the text rather than requiring authors to input them manually. That circumvents the possibility that the author will enter an incorrect number, or forget to update them should new data arise.
 
-Suppose we go to the market and purchase some fruit, and save the data in a spreadsheet. (Table \ref{tab:fruit-basket}).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# create a mock spreadsheet}
-\NormalTok{fruit\_basket }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
-  \SpecialCharTok{\textasciitilde{}}\NormalTok{type,}\SpecialCharTok{\textasciitilde{}}\NormalTok{count,}\SpecialCharTok{\textasciitilde{}}\NormalTok{unit\_price,}
-  \StringTok{"apple"}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{,}
-  \StringTok{"banana"}\NormalTok{,}\DecValTok{12}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}
-  \StringTok{"cantaloupe"}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}
-  \StringTok{"honeydew"}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}
-  \StringTok{"orange"}\NormalTok{,}\DecValTok{7}\NormalTok{,}\FloatTok{0.75}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{total =}\NormalTok{ count }\SpecialCharTok{*}\NormalTok{ unit\_price)}
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(fruit\_basket, }\AttributeTok{format =} \StringTok{\textquotesingle{}latex\textquotesingle{}}\NormalTok{, }\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }
-             \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Type"}\NormalTok{, }\StringTok{"Count"}\NormalTok{, }\StringTok{"Price"}\NormalTok{, }\StringTok{"Total"}\NormalTok{),}
-             \AttributeTok{align =} \StringTok{\textquotesingle{}lccr\textquotesingle{}}\NormalTok{, }\CommentTok{\# left, center, center, right}
-             \AttributeTok{caption =} \StringTok{"Our fruit basket"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+For instance, imagine we are analyzing data from a clinical trial:
 
 \begin{table}
 
-\caption{\label{tab:fruit-basket}Our fruit basket}
+\caption{\label{tab:subject-weights}Original subject data}
 \centering
-\begin{tabular}[t]{lccr}
+\begin{tabular}[t]{rlrlrlrlrlr}
 \toprule
-Type & Count & Price & Total\\
+ID & class & wt & | & ID & class & wt & | & ID & class & wt\\
 \midrule
-apple & 5 & 1.00 & 5.00\\
-banana & 12 & 0.50 & 6.00\\
-cantaloupe & 2 & 2.00 & 4.00\\
-honeydew & 2 & 3.00 & 6.00\\
-orange & 7 & 0.75 & 5.25\\
+1 & GRP\_3 & 76 & | & 34 & GRP\_1 & 269 & | & 67 & GRP\_3 & 182\\
+2 & GRP\_3 & 295 & | & 35 & GRP\_3 & 277 & | & 68 & GRP\_3 & 151\\
+3 & GRP\_3 & 186 & | & 36 & GRP\_3 & 159 & | & 69 & GRP\_3 & 295\\
+4 & GRP\_3 & 162 & | & 37 & GRP\_3 & 217 & | & 70 & GRP\_3 & 224\\
+5 & GRP\_2 & 257 & | & 38 & GRP\_3 & 106 & | & 71 & GRP\_3 & 219\\
+\addlinespace
+6 & GRP\_1 & 278 & | & 39 & GRP\_3 & 98 & | & 72 & GRP\_3 & 158\\
+7 & GRP\_3 & 116 & | & 40 & GRP\_2 & 202 & | & 73 & GRP\_1 & 224\\
+8 & GRP\_3 & 297 & | & 41 & GRP\_3 & 178 & | & 74 & GRP\_3 & 187\\
+9 & GRP\_3 & 75 & | & 42 & GRP\_1 & 142 & | & 75 & GRP\_3 & 186\\
+10 & GRP\_3 & 162 & | & 43 & GRP\_2 & 90 & | & 76 & GRP\_2 & 173\\
+\addlinespace
+11 & GRP\_1 & 295 & | & 44 & GRP\_3 & 207 & | & 77 & GRP\_1 & 123\\
+12 & GRP\_3 & 144 & | & 45 & GRP\_3 & 138 & | & 78 & GRP\_3 & 216\\
+13 & GRP\_3 & 235 & | & 46 & GRP\_3 & 288 & | & 79 & GRP\_2 & 152\\
+14 & GRP\_3 & 242 & | & 47 & GRP\_3 & 177 & | & 80 & GRP\_3 & 157\\
+15 & GRP\_3 & 179 & | & 48 & GRP\_1 & 132 & | & 81 & GRP\_3 & 291\\
+\addlinespace
+16 & GRP\_1 & 184 & | & 49 & GRP\_3 & 204 & | & 82 & GRP\_2 & 149\\
+17 & GRP\_3 & 248 & | & 50 & GRP\_3 & 86 & | & 83 & GRP\_1 & 246\\
+18 & GRP\_1 & 273 & | & 51 & GRP\_3 & 294 & | & 84 & GRP\_3 & 287\\
+19 & GRP\_3 & 185 & | & 52 & GRP\_3 & 137 & | & 85 & GRP\_3 & 221\\
+20 & GRP\_3 & 283 & | & 53 & GRP\_2 & 225 & | & 86 & GRP\_3 & 295\\
+\addlinespace
+21 & GRP\_1 & 259 & | & 54 & GRP\_3 & 84 & | & 87 & GRP\_1 & 243\\
+22 & GRP\_2 & 148 & | & 55 & GRP\_2 & 123 & | & 88 & GRP\_2 & 138\\
+23 & GRP\_2 & 273 & | & 56 & GRP\_3 & 256 & | & 89 & GRP\_1 & 144\\
+24 & GRP\_1 & 295 & | & 57 & GRP\_3 & 180 & | & 90 & GRP\_3 & 156\\
+25 & GRP\_2 & 285 & | & 58 & GRP\_3 & 281 & | & 91 & GRP\_3 & 109\\
+\addlinespace
+26 & GRP\_3 & 211 & | & 59 & GRP\_2 & 179 & | & 92 & GRP\_2 & 138\\
+27 & GRP\_2 & 79 & | & 60 & GRP\_3 & 288 & | & 93 & GRP\_1 & 162\\
+28 & GRP\_3 & 192 & | & 61 & GRP\_3 & 84 & | & 94 & GRP\_3 & 87\\
+29 & GRP\_2 & 236 & | & 62 & GRP\_3 & 296 & | & 95 & GRP\_2 & 176\\
+30 & GRP\_1 & 201 & | & 63 & GRP\_2 & 108 & | & 96 & GRP\_3 & 232\\
+\addlinespace
+31 & GRP\_2 & 224 & | & 64 & GRP\_2 & 197 & | & 97 & GRP\_1 & 122\\
+32 & GRP\_2 & 161 & | & 65 & GRP\_3 & 297 & | & 98 & GRP\_1 & 249\\
+33 & GRP\_1 & 189 & | & 66 & GRP\_3 & 179 & | & 99 & GRP\_3 & 226\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Rather than hard-coding the numbers from our purchase directly in the text, we can use the programming language \texttt{R} to fill those numbers in for us. For instance, the text: ``We purchased \texttt{\textasciigrave{}r\ sum(fruit\_basket\$count)\textasciigrave{}} pieces of fruit\ldots{}'' produces the output: ``We purchased 28 pieces of fruit\ldots{}.'' That way, if we make any additional purchases, we can update our manuscript automatically.
+We have \textbf{99} subjects in our study (Table \ref{tab:subject-weights}). The average weight is \textbf{196.17} (range: \textbf{75}-\textbf{297}). (The numbers in \textbf{bold face type} are computed values.)
 
-In the following text, computed values are indicated in \textbf{bold type}: We purchased \textbf{5} types of fruit at the grocery store. We purchased \textbf{28} pieces in all, including \textbf{12} bananas and \textbf{5} apples. The total cost was \textbf{\$26.25}.
+Now suppose we get another tranche of data:
+
+\begin{table}
+
+\caption{\label{tab:new-data}New subject data}
+\centering
+\begin{tabular}[t]{rlrlrlrlrlr}
+\toprule
+ID & class & wt & | & ID & class & wt & | & ID & class & wt\\
+\midrule
+1 & GRP\_3 & 292 & | & 21 & GRP\_3 & 251 & | & 41 & GRP\_3 & 100\\
+2 & GRP\_3 & 167 & | & 22 & GRP\_2 & 149 & | & 42 & GRP\_1 & 76\\
+3 & GRP\_2 & 115 & | & 23 & GRP\_2 & 269 & | & 43 & GRP\_3 & 208\\
+4 & GRP\_3 & 199 & | & 24 & GRP\_3 & 207 & | & 44 & GRP\_3 & 128\\
+5 & GRP\_3 & 238 & | & 25 & GRP\_3 & 197 & | & 45 & GRP\_2 & 123\\
+\addlinespace
+6 & GRP\_1 & 202 & | & 26 & GRP\_2 & 116 & | & 46 & GRP\_3 & 159\\
+7 & GRP\_3 & 103 & | & 27 & GRP\_2 & 78 & | & 47 & GRP\_2 & 228\\
+8 & GRP\_3 & 232 & | & 28 & GRP\_1 & 82 & | & 48 & GRP\_1 & 78\\
+9 & GRP\_1 & 103 & | & 29 & GRP\_3 & 219 & | & 49 & GRP\_3 & 189\\
+10 & GRP\_3 & 169 & | & 30 & GRP\_3 & 235 & | & 50 & GRP\_2 & 265\\
+\addlinespace
+11 & GRP\_3 & 291 & | & 31 & GRP\_3 & 280 & | & 51 & GRP\_3 & 93\\
+12 & GRP\_3 & 226 & | & 32 & GRP\_1 & 208 & | & 52 & GRP\_3 & 78\\
+13 & GRP\_1 & 97 & | & 33 & GRP\_2 & 119 & | & 53 & GRP\_3 & 196\\
+14 & GRP\_3 & 173 & | & 34 & GRP\_3 & 240 & | & 54 & GRP\_3 & 278\\
+15 & GRP\_2 & 99 & | & 35 & GRP\_3 & 225 & | & 55 & GRP\_3 & 226\\
+\addlinespace
+16 & GRP\_3 & 186 & | & 36 & GRP\_3 & 297 & | & 56 & GRP\_3 & 214\\
+17 & GRP\_3 & 183 & | & 37 & GRP\_1 & 162 & | & 57 & GRP\_3 & 261\\
+18 & GRP\_3 & 132 & | & 38 & GRP\_3 & 237 & | & 58 & GRP\_3 & 272\\
+19 & GRP\_2 & 278 & | & 39 & GRP\_3 & 226 & | & 59 & GRP\_1 & 298\\
+20 & GRP\_3 & 112 & | & 40 & GRP\_3 & 168 & | & 60 & GRP\_3 & 109\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+There are \textbf{60} subjects in this new dataset (Table \ref{tab:new-data}). Their average weight is \textbf{185.68} (range: \textbf{76}-\textbf{298}).
+
+Combining the two datasets, we have a total of \textbf{159} subjects. The revised average weight is \textbf{192.21} (range: \textbf{75}-\textbf{298}).
 
 \hypertarget{sec:2}{%
 \subsection{The Fibonacci sequence}\label{sec:2}}
@@ -227,12 +282,46 @@ In the following text, computed values are indicated in \textbf{bold type}: We p
 \caption{\label{fig:fibonacci}The first 26 numbers of the Fibonacci sequence}
 \end{figure}
 
-We calculated the first \textbf{25} numbers in the Fibonacci sequence. The data are shown in Figure \ref{fig:fibonacci}. (See the code listing in Section \ref{methods}.) Note that this figure number (as well as the table number above) is automatically generated.
+As Rmarkdown documents can do anything R can do, we can also create and include figures. For instance, we can calculate the first \textbf{25} numbers in the Fibonacci sequence. The data are shown in Figure \ref{fig:fibonacci}. Note that this figure number (as well as the table numbers above) are automatically generated.
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
 
-The following code was used in section \ref{sec:2}, to calculate and plot the Fibonacci sequence:
+The following code was used in section \ref{sec:1} to create the original clinical trial data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# create a mock dataset}
+\NormalTok{n\_subjs }\OtherTok{\textless{}{-}} \DecValTok{99}
+\NormalTok{subjID }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_subjs}
+
+\CommentTok{\# generate 99 random \#s between 0 and 10}
+\NormalTok{tmp }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(}\FunctionTok{runif}\NormalTok{(n\_subjs, }\AttributeTok{min =} \DecValTok{0}\NormalTok{, }\AttributeTok{max =} \DecValTok{10}\NormalTok{))}
+\CommentTok{\# assign those numbers to any of 3 subject groups}
+\NormalTok{fn }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{ }
+  \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{\textgreater{}} \DecValTok{7}\NormalTok{) }\StringTok{\textquotesingle{}GRP\_1\textquotesingle{}} 
+  \ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{\textgreater{}} \DecValTok{5}\NormalTok{) }\StringTok{\textquotesingle{}GRP\_2\textquotesingle{}} 
+  \ControlFlowTok{else} \StringTok{\textquotesingle{}GRP\_3\textquotesingle{}} 
+\NormalTok{\}}
+\NormalTok{subj\_class }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(tmp, fn)}
+
+\CommentTok{\# pick random weights between 75 and 300}
+\NormalTok{wts }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(}\FunctionTok{runif}\NormalTok{(n\_subjs, }\AttributeTok{min =} \DecValTok{75}\NormalTok{, }\AttributeTok{max =} \DecValTok{300}\NormalTok{))}
+\CommentTok{\# combine the data into a table}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{ID =}\NormalTok{ subjID, }\AttributeTok{class =}\NormalTok{ subj\_class, }\AttributeTok{wt =}\NormalTok{ wts)}
+
+\CommentTok{\# display the table, splitting the 99 rows into 3 cols wide}
+\NormalTok{tmp }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(df[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{33}\NormalTok{,], }\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}|\textquotesingle{}}\NormalTok{, }\DecValTok{33}\NormalTok{), }
+\NormalTok{             df[}\DecValTok{34}\SpecialCharTok{:}\DecValTok{66}\NormalTok{,], }\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}|\textquotesingle{}}\NormalTok{, }\DecValTok{33}\NormalTok{), }
+\NormalTok{             df[}\DecValTok{67}\SpecialCharTok{:}\DecValTok{99}\NormalTok{,])}
+\FunctionTok{names}\NormalTok{(tmp) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}ID\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}class\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}wt\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}|\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ID\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}class\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}wt\textquotesingle{}}\NormalTok{, }
+                \StringTok{\textquotesingle{}|\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ID\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}class\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}wt\textquotesingle{}}\NormalTok{)}
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(tmp, }\AttributeTok{format =} \StringTok{\textquotesingle{}latex\textquotesingle{}}\NormalTok{, }\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }
+             \AttributeTok{caption =} \StringTok{"Original subject data"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The following code was used in section \ref{sec:2} to calculate and plot the Fibonacci sequence:
 
 \begin{Shaded}
 \begin{Highlighting}[]
