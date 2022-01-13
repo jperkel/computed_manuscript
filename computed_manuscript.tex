@@ -177,7 +177,7 @@ The `killer feature' of computed manuscripts is their ability to compute and ins
 
 Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
 
-Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}: \texttt{\textasciigrave{}r\ \textless{}code\ to\ evaluate\textgreater{}\textasciigrave{}}. For instance, to calculate the circumference and area of a circle with radius \emph{r} = 10, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}}'' and ``C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}. Those evaluate to''A = \textbf{314.159} and C = \textbf{62.832}".
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, to calculate the circumference and area of a circle with radius \emph{r} = 10, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}}'' and ``C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}. Those evaluate to''A = \textbf{314.159} and C = \textbf{62.832}".
 
 Returning to our dataset, we have \textbf{99} (simulated) subjects in our study. The average metabolite concentration is \textbf{185.36} (range: \textbf{78}-\textbf{298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
 
@@ -270,7 +270,7 @@ We can also create and include figures during manuscript creation. Here we plot 
 
 \begin{figure}
 \centering
-\includegraphics{SN_templates_files/figure-latex/plot-data-1.pdf}
+\includegraphics{computed_manuscript_files/figure-latex/plot-data-1.pdf}
 \caption{\label{fig:plot-data}Metabolite concentration of clinical trial subjects}
 \end{figure}
 
@@ -291,14 +291,14 @@ The following code was used to load, merge, and plot the (simulated) clinical tr
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# read in some initial data}
-\NormalTok{df1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}example{-}data{-}1.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{df1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}data/example{-}data{-}1.csv\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# read new dataset}
-\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}example{-}data{-}2.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}data/example{-}data{-}2.csv\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -329,17 +329,17 @@ The following code was used to load, merge, and plot the (simulated) clinical tr
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-argelaguet_computational_2021}{}}%
+\leavevmode\hypertarget{ref-argelaguet_computational_2021}{}%
 Argelaguet, Ricard, Anna S. E. Cuomo, Oliver Stegle, and John C. Marioni. 2021. {``Computational Principles and Challenges in Single-Cell Data Integration.''} \emph{Nature Biotechnology}, May, 1--14. \url{https://doi.org/10.1038/s41587-021-00895-7}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-fisch_omics_2015}{}}%
+\leavevmode\hypertarget{ref-fisch_omics_2015}{}%
 Fisch, K. M., T. Meissner, L. Gioia, J.-C. Ducom, T. M. Carland, S. Loguercio, and A. I. Su. 2015. {``Omics {Pipe}: A Community-Based Framework for Reproducible Multi-Omics Data Analysis.''} \emph{Bioinformatics} 31 (11): 1724--28. \url{https://doi.org/10.1093/bioinformatics/btv061}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-le_cao_community-wide_2021}{}}%
+\leavevmode\hypertarget{ref-le_cao_community-wide_2021}{}%
 Lê Cao, Kim-Anh, Al J. Abadi, Emily F. Davis-Marcisak, Lauren Hsu, Arshi Arora, Alexis Coullomb, Atul Deshpande, et al. 2021. {``Community-Wide Hackathons to Identify Central Themes in Single-Cell Multi-Omics.''} \emph{Genome Biology} 22 (1): 220. \url{https://doi.org/10.1186/s13059-021-02433-9}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-perkel2020}{}}%
-Perkel, Jeffrey M. 2020. {``Streamline Your Writing {\textemdash} and Collaborations {\textemdash} with These Reference Managers.''} \emph{Nature} 585 (7823): 149--50. \url{https://doi.org/10.1038/d41586-020-02491-2}.
+\leavevmode\hypertarget{ref-perkel2020}{}%
+Perkel, Jeffrey M. 2020. {``Streamline Your Writing {{}} and Collaborations {{}} with These Reference Managers.''} \emph{Nature} 585 (7823): 149--50. \url{https://doi.org/10.1038/d41586-020-02491-2}.
 
 \end{CSLReferences}
 

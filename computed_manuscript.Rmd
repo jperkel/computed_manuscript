@@ -1,0 +1,128 @@
+---
+title: My Example Computed Manuscript
+subtitle: Created in Rmarkdown
+titlerunning: Example computed manuscript
+
+authors: 
+- name: Jeffrey M. Perkel
+  address: Springer Nature, 1 New York Plaza, New York, NY
+  email: jeffrey.perkel@nature.com
+  
+abstract: |
+  A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown} and {Rticles} packages were used to output the text in Springer Nature's desired manuscript format. 
+
+bibliography: bibliography.bib
+biblio-style: spbasic
+# bibstyle options spbasic(default), spphys, spmpsci
+output: 
+  bookdown::pdf_book:
+    base_format: rticles::springer_article
+    extra_dependencies: ["booktabs"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE)
+```
+
+```{r load-libraries, include=FALSE}
+# load libraries
+library(tidyverse)
+library(ggbeeswarm)
+library(bookdown)
+```
+
+# Introduction {#intro}
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+Here we'll add some references from Zotero [@perkel2020]: [@fisch_omics_2015; @argelaguet_computational_2021; @le_cao_community-wide_2021].
+
+Markdown documents can include inline equations written in \LaTeX, such as $F = ma$. Here is an equation on its own line:
+
+$$a^2 + b^2 = c^2$$
+
+# Results {#results}
+
+## Inline computation {#sec:1}
+
+The 'killer feature' of computed manuscripts is their ability to compute and insert values and figures into the text rather than requiring authors to input them manually. That circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise.
+
+Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
+
+```{r initial-data}
+# read in some initial data
+df1 <- read_csv('data/example-data-1.csv')
+```
+
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, to calculate the circumference and area of a circle with radius *r* = 10, you could write "A = `` `r
+pi * r^2` ``" and "C = `` `r
+2 * pi * r` ``. Those evaluate to "A = **`r r = 10; round(pi * r^2, 3)`** and C = **`r r = 10; round(2 * pi * r, 3)`**".
+
+Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study. The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r min(df1$conc)`**-**`r max(df1$conc)`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
+
+```{r new-data}
+# read new dataset
+df2 <- read_csv('data/example-data-2.csv')
+```
+
+Now suppose we get another tranche of data. There are **`r nrow(df2)`** subjects in this new dataset. Their average concentration is **`r round(mean(df2$conc), 2)`** (range: **`r min(df2$conc)`**-**`r max(df2$conc)`**).
+
+```{r combine-tables}
+# merge datasets
+final_data <- rbind(df1, df2)
+```
+
+Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects (Table \@ref(tab:show-table)). The revised average metabolite concentration is **`r round(mean(final_data$conc), 2)`** (range: **`r min(final_data$conc)`**-**`r max(final_data$conc)`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3.
+
+## Data tables {#sec:2}
+
+```{r show-table}
+tmp <- cbind(final_data[1:53,], rep('|', 53), 
+             final_data[54:106,], rep('|', 53), 
+             final_data[107:159,])
+names(tmp) <- c('ID', 'Class', 'Conc', '|', 'ID', 'Class', 'Conc', 
+                '|', 'ID', 'Class', 'Conc')
+
+knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
+             caption = "Final subject data")
+```
+
+## Plotting the data {#sec:3}
+
+We can also create and include figures during manuscript creation. Here we plot boxplots of our clinical trial data. The data are shown in Figure \@ref(fig:plot-data). Note that this figure number (as well as the table number above) is automatically generated.
+
+```{r plot-data, fig.cap="Metabolite concentration of clinical trial subjects", fig.height=3, fig.width=4}
+# plot the data
+final_data %>% 
+  ggplot(aes(x = class, y = conc, color = class)) +
+  geom_boxplot() +
+  ggbeeswarm::geom_quasirandom(width = 0.25) + 
+  xlab("") +
+  ylab("Metabolite concentration") + 
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+# Code {#code}
+
+The following code was used to load, merge, and plot the (simulated) clinical trial data:
+
+```{r show-code-1, echo=TRUE, eval=FALSE, ref.label='load-libraries'}
+```
+
+```{r show-code-2, echo=TRUE, eval=FALSE, ref.label='initial-data'}
+```
+
+```{r show-code-3, echo=TRUE, eval=FALSE, ref.label='new-data'}
+```
+
+```{r show-code-4, echo=TRUE, eval=FALSE, ref.label='combine-tables'}
+```
+
+```{r show-code-5, echo=TRUE, eval=FALSE, ref.label='plot-data'}
+```
+
+# References
