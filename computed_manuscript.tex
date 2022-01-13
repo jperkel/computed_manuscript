@@ -159,11 +159,9 @@ A mock computed manuscript created in RStudio using \{Rmarkdown\}. The \{Bookdow
 \hypertarget{intro}{%
 \section{Introduction}\label{intro}}
 
-Manuscript built at \textbf{13 Jan 2022 09:43:43 MST}
+``Literate programming'' is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility.\textsuperscript{1--3} (These references were added into the document using RStudio's integration with the open-source Zotero reference manager\textsuperscript{4} plus the \href{https://retorque.re/zotero-better-bibtex/}{Better BibTeX} Zotero plugin.)
 
-``Literate programming'' is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility.(Shen 2014; Perkel 2018a, 2018b)
-
-Several platforms for creating such documents exist, including Jupyter, R Markdown and Observable notebooks.(Perkel 2021) Typically, these documents interleave code and text `blocks' to build a computational narrative. But some, including R Markdown and the JupyterBook extension to the Jupyter ecosystem, also allow authors to include and execute code ``inline'' -- that is, within the text itself.
+Several platforms for creating such documents exist, including Jupyter, R Markdown and Observable notebooks.\textsuperscript{5} Typically, these documents interleave code and text `blocks' to build a computational narrative. But some, including R Markdown and the JupyterBook extension to the Jupyter ecosystem, also allow authors to include and execute code ``inline'' -- that is, within the text itself.
 
 This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise.
 
@@ -180,6 +178,78 @@ Imagine we are analyzing data from a clinical trial. We have grouped subjects in
 Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, to calculate the circumference and area of a circle with radius \emph{r} = 10, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}}'' and ``C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}. Those evaluate to''A = \textbf{314.159} and C = \textbf{62.832}".
 
 Returning to our dataset, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}). The average metabolite concentration is \textbf{185.36} (range: \textbf{78}-\textbf{298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
+
+\hypertarget{sec:2}{%
+\subsection{Incorporating new data}\label{sec:2}}
+
+Now suppose we get another tranche of data (Table \ref{tab:show-table-2}). There are \textbf{60} subjects in this new dataset. Their average concentration is \textbf{185.13} (range: \textbf{77}-\textbf{299}).
+
+Combining the two datasets, we have a total of \textbf{159} subjects. The revised average metabolite concentration is \textbf{185.28} (range: \textbf{77}-\textbf{299}). We now have \textbf{55} subjects in Group 1, \textbf{60} subjects in Group 2, and \textbf{44} in Group 3.
+
+\hypertarget{sec:3}{%
+\subsection{Plotting the data}\label{sec:3}}
+
+We can also create and include figures during manuscript creation. Here we graph boxplots of our clinical trial data. The data are shown in Figure \ref{fig:plot-data}. Note that this figure number (as well as the table numbers above) is automatically generated.
+
+\begin{figure}
+\centering
+\includegraphics{computed_manuscript_files/figure-latex/plot-data-1.pdf}
+\caption{\label{fig:plot-data}Metabolite concentration of clinical trial subjects}
+\end{figure}
+
+\newpage
+
+\hypertarget{code}{%
+\section{Code}\label{code}}
+
+The following code was used to load, merge, and plot the (simulated) clinical trial data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# load libraries}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(ggbeeswarm)}
+\FunctionTok{library}\NormalTok{(bookdown)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# read in some initial data}
+\NormalTok{df1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}data/example{-}data{-}1.csv\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# read new dataset}
+\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}data/example{-}data{-}2.csv\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# merge datasets}
+\NormalTok{final\_data }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(df1, df2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# plot the data}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ final\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ class, }\AttributeTok{y =}\NormalTok{ conc, }\AttributeTok{color =}\NormalTok{ class)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+\NormalTok{  ggbeeswarm}\SpecialCharTok{::}\FunctionTok{geom\_quasirandom}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Metabolite concentration"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
 
 \begin{table}
 
@@ -232,10 +302,7 @@ ID\_33 & Group 2 & 241 & | & ID\_66 & Group 2 & 129 & | & ID\_99 & Group 2 & 86\
 \end{tabular}
 \end{table}
 
-\hypertarget{sec:2}{%
-\subsection{Incorporating new data}\label{sec:2}}
-
-Now suppose we get another tranche of data (Table \ref{tab:show-table-2}). There are \textbf{60} subjects in this new dataset. Their average concentration is \textbf{185.13} (range: \textbf{77}-\textbf{299}).
+\newpage
 
 \begin{table}
 
@@ -272,85 +339,81 @@ ID\_119 & Group 3 & 258 & | & ID\_139 & Group 1 & 108 & | & ID\_159 & Group 2 & 
 \end{tabular}
 \end{table}
 
-Combining the two datasets, we have a total of \textbf{159} subjects (Table \ref{tab:show-table}). The revised average metabolite concentration is \textbf{185.28} (range: \textbf{77}-\textbf{299}). We now have \textbf{55} subjects in Group 1, \textbf{60} subjects in Group 2, and \textbf{44} in Group 3.
+\hypertarget{colophon}{%
+\section{Colophon}\label{colophon}}
 
-\hypertarget{sec:3}{%
-\subsection{Plotting the data}\label{sec:3}}
+This manuscript was built at \textbf{13 Jan 2022 12:30:02 MST} using the following computational environment and dependencies:
 
-We can also create and include figures during manuscript creation. Here we graph boxplots of our clinical trial data. The data are shown in Figure \ref{fig:plot-data}. Note that this figure number (as well as the table numbers above) is automatically generated.
+\begin{verbatim}
+## R version 4.0.4 (2021-02-15)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Mojave 10.14.6
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] bookdown_0.24    ggbeeswarm_0.6.0 forcats_0.5.1    stringr_1.4.0   
+##  [5] dplyr_1.0.5      purrr_0.3.4      readr_2.1.1      tidyr_1.1.3     
+##  [9] tibble_3.1.6     ggplot2_3.3.3    tidyverse_1.3.0 
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 digest_0.6.28   
+##  [5] utf8_1.2.2       R6_2.5.1         cellranger_1.1.0 backports_1.2.1 
+##  [9] reprex_2.0.0     evaluate_0.14    highr_0.8        httr_1.4.2      
+## [13] pillar_1.6.4     rlang_0.4.12     readxl_1.3.1     rstudioapi_0.13 
+## [17] rticles_0.22     rmarkdown_2.7    labeling_0.4.2   bit_4.0.4       
+## [21] munsell_0.5.0    broom_0.7.6      compiler_4.0.4   vipor_0.4.5     
+## [25] modelr_0.1.8     xfun_0.29        pkgconfig_2.0.3  htmltools_0.5.2 
+## [29] tidyselect_1.1.1 fansi_0.5.0      crayon_1.4.2     tzdb_0.2.0      
+## [33] dbplyr_2.1.0     withr_2.4.3      grid_4.0.4       jsonlite_1.7.2  
+## [37] gtable_0.3.0     lifecycle_1.0.1  DBI_1.1.1        magrittr_2.0.1  
+## [41] scales_1.1.1     cli_3.1.0        stringi_1.7.6    vroom_1.5.7     
+## [45] farver_2.1.0     fs_1.5.0         xml2_1.3.3       ellipsis_0.3.2  
+## [49] generics_0.1.1   vctrs_0.3.8      tools_4.0.4      bit64_4.0.5     
+## [53] glue_1.6.0       beeswarm_0.4.0   hms_1.1.1        parallel_4.0.4  
+## [57] fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-0 rvest_1.0.2     
+## [61] knitr_1.37       haven_2.3.1
+\end{verbatim}
 
-\begin{figure}
-\centering
-\includegraphics{computed_manuscript_files/figure-latex/plot-data-1.pdf}
-\caption{\label{fig:plot-data}Metabolite concentration of clinical trial subjects}
-\end{figure}
+The current Git commit details are:
 
-\hypertarget{code}{%
-\section{Code}\label{code}}
-
-The following code was used to load, merge, and plot the (simulated) clinical trial data:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# load libraries}
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(ggbeeswarm)}
-\FunctionTok{library}\NormalTok{(bookdown)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# read in some initial data}
-\NormalTok{df1 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}data/example{-}data{-}1.csv\textquotesingle{}}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# read new dataset}
-\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}data/example{-}data{-}2.csv\textquotesingle{}}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# merge datasets}
-\NormalTok{final\_data }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(df1, df2)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# plot the data}
-\NormalTok{final\_data }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ class, }\AttributeTok{y =}\NormalTok{ conc, }\AttributeTok{color =}\NormalTok{ class)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
-\NormalTok{  ggbeeswarm}\SpecialCharTok{::}\FunctionTok{geom\_quasirandom}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Metabolite concentration"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{verbatim}
+## [f8673e0] 2022-01-13: Update README.md
+\end{verbatim}
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
+\begin{CSLReferences}{0}{0}
+\leavevmode\hypertarget{ref-shen2014}{}%
+\CSLLeftMargin{1. }
+\CSLRightInline{Shen, H. Interactive notebooks: Sharing the code. \emph{Nature} \textbf{515}, 151--152 (2014).}
+
 \leavevmode\hypertarget{ref-perkel2018a}{}%
-Perkel, Jeffrey M. 2018a. {``A Toolkit for Data Transparency Takes Shape.''} \emph{Nature} 560 (7719): 513--15. \url{https://doi.org/10.1038/d41586-018-05990-5}.
+\CSLLeftMargin{2. }
+\CSLRightInline{Perkel, J. M. A toolkit for data transparency takes shape. \emph{Nature} \textbf{560}, 513--515 (2018).}
 
 \leavevmode\hypertarget{ref-perkel2018}{}%
----------. 2018b. {``Why Jupyter Is Data Scientists{'} Computational Notebook of Choice.''} \emph{Nature} 563 (7729): 145--46. \url{https://doi.org/10.1038/d41586-018-07196-1}.
+\CSLLeftMargin{3. }
+\CSLRightInline{Perkel, J. M. Why Jupyter is data scientists{'} computational notebook of choice. \emph{Nature} \textbf{563}, 145--146 (2018).}
+
+\leavevmode\hypertarget{ref-perkel2020}{}%
+\CSLLeftMargin{4. }
+\CSLRightInline{Perkel, J. M. Streamline your writing {{}} and collaborations {{}} with these reference managers. \emph{Nature} \textbf{585}, 149--150 (2020).}
 
 \leavevmode\hypertarget{ref-perkel2021}{}%
----------. 2021. {``Reactive, Reproducible, Collaborative: Computational Notebooks Evolve.''} \emph{Nature} 593 (7857): 156--57. \url{https://doi.org/10.1038/d41586-021-01174-w}.
-
-\leavevmode\hypertarget{ref-shen2014}{}%
-Shen, Helen. 2014. {``Interactive Notebooks: Sharing the Code.''} \emph{Nature} 515 (7525): 151--52. \url{https://doi.org/10.1038/515151a}.
+\CSLLeftMargin{5. }
+\CSLRightInline{Perkel, J. M. Reactive, reproducible, collaborative: computational notebooks evolve. \emph{Nature} \textbf{593}, 156--157 (2021).}
 
 \end{CSLReferences}
 
