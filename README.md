@@ -1,6 +1,8 @@
 # Executable manuscript
 
-<!-- badges: start --> [![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jperkel/computed_manuscript/main?urlpath=rstudio) <!-- badges: end -->
+<!-- badges: start --> 
+[![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jperkel/computed_manuscript/main?urlpath=rstudio) 
+<!-- badges: end -->
 
 This repository demonstrates a fully executable manuscript. The manuscript itself is in the file `computed_manuscript.Rmd`; `computed_manuscript.pdf` contains the resulting formatted document, which is created automatically using the LaTeX typesetting system.
 
