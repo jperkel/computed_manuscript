@@ -35,19 +35,17 @@ library(bookdown)
 
 # Introduction {#intro}
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+"Literate programming" is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility.[@shen2014; @perkel2018a; @perkel2018]
 
-Here we'll add some references from Zotero [@perkel2020]: [@fisch_omics_2015; @argelaguet_computational_2021; @le_cao_community-wide_2021].
+Several platforms for creating such documents exist, including Jupyter, R Markdown and Observable notebooks.[@perkel2021] Typically, these documents interleave code and text 'blocks' to build a computational narrative. But some, including R Markdown and the JupyterBook extension to the Jupyter ecosystem, also allow authors to include and execute code "inline" -- that is, within the text itself.
 
-Markdown documents can include inline equations written in \LaTeX, such as $F = ma$. Here is an equation on its own line:
+This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the 'killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise.
 
-$$a^2 + b^2 = c^2$$
+In this manuscript, created in RStudio using the R Markdown language, we will create such an example.
 
 # Results {#results}
 
 ## Inline computation {#sec:1}
-
-The 'killer feature' of computed manuscripts is their ability to compute and insert values and figures into the text rather than requiring authors to input them manually. That circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise.
 
 Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
 
@@ -60,14 +58,38 @@ Rather than analyzing those data and then copying the results into our manuscrip
 pi * r^2` ``" and "C = `` `r
 2 * pi * r` ``. Those evaluate to "A = **`r r = 10; round(pi * r^2, 3)`** and C = **`r r = 10; round(2 * pi * r, 3)`**".
 
-Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study. The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r min(df1$conc)`**-**`r max(df1$conc)`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
+Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1)). The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r min(df1$conc)`**-**`r max(df1$conc)`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
+
+```{r show-table-1}
+tmp <- cbind(df1[1:33,], rep('|', 33), 
+             df1[34:66,], rep('|', 33), 
+             df1[67:99,])
+names(tmp) <- c('ID', 'Class', 'Conc', '|', 'ID', 'Class', 'Conc', 
+                '|', 'ID', 'Class', 'Conc')
+
+knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
+             caption = "Initial subject data")
+```
 
 ```{r new-data}
 # read new dataset
 df2 <- read_csv('data/example-data-2.csv')
 ```
 
-Now suppose we get another tranche of data. There are **`r nrow(df2)`** subjects in this new dataset. Their average concentration is **`r round(mean(df2$conc), 2)`** (range: **`r min(df2$conc)`**-**`r max(df2$conc)`**).
+## Incorporating new data {#sec:2}
+
+Now suppose we get another tranche of data (Table \@ref(tab:show-table-2)). There are **`r nrow(df2)`** subjects in this new dataset. Their average concentration is **`r round(mean(df2$conc), 2)`** (range: **`r min(df2$conc)`**-**`r max(df2$conc)`**).
+
+```{r show-table-2}
+tmp <- cbind(df2[1:20,], rep('|', 20), 
+             df2[21:40,], rep('|', 20), 
+             df2[41:60,])
+names(tmp) <- c('ID', 'Class', 'Conc', '|', 'ID', 'Class', 'Conc', 
+                '|', 'ID', 'Class', 'Conc')
+
+knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
+             caption = "New subject data")
+```
 
 ```{r combine-tables}
 # merge datasets
@@ -76,22 +98,9 @@ final_data <- rbind(df1, df2)
 
 Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects (Table \@ref(tab:show-table)). The revised average metabolite concentration is **`r round(mean(final_data$conc), 2)`** (range: **`r min(final_data$conc)`**-**`r max(final_data$conc)`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3.
 
-## Data tables {#sec:2}
-
-```{r show-table}
-tmp <- cbind(final_data[1:53,], rep('|', 53), 
-             final_data[54:106,], rep('|', 53), 
-             final_data[107:159,])
-names(tmp) <- c('ID', 'Class', 'Conc', '|', 'ID', 'Class', 'Conc', 
-                '|', 'ID', 'Class', 'Conc')
-
-knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
-             caption = "Final subject data")
-```
-
 ## Plotting the data {#sec:3}
 
-We can also create and include figures during manuscript creation. Here we plot boxplots of our clinical trial data. The data are shown in Figure \@ref(fig:plot-data). Note that this figure number (as well as the table number above) is automatically generated.
+We can also create and include figures during manuscript creation. Here we graph boxplots of our clinical trial data. The data are shown in Figure \@ref(fig:plot-data). Note that this figure number (as well as the table numbers    above) is automatically generated.
 
 ```{r plot-data, fig.cap="Metabolite concentration of clinical trial subjects", fig.height=3, fig.width=4}
 # plot the data
