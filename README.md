@@ -31,7 +31,7 @@ tinytex::install_tinytex(version = "2022.01")
 
 ## No-installation test-drive 
 
-Thanks to major assistance from [Ben Marwick](https://twitter.com/benmarwick) at the University of Washington in Seattle, you can test-drive this repository without installing everything using the free and open-source [Binder](https://mybinder.org/) service, which allows users to [recreate computational environments](https://www.nature.com/articles/d41586-019-03366-x) in the cloud. Click the 'Launch Binder' button above to launch RStudio in your web browser, including all required libraries. (It may take a few minutes to start.)
+Thanks to major assistance from [Ben Marwick](https://github.com/benmarwick/) at the University of Washington in Seattle, you can test-drive this repository without installing everything using the free and open-source [Binder](https://mybinder.org/) service, which allows users to [recreate computational environments](https://www.nature.com/articles/d41586-019-03366-x) in the cloud. Click the 'Launch Binder' button above to launch RStudio in your web browser, including all required libraries. (It may take a few minutes to start.)
 
 Once RStudio is running, select `computed_manuscript.Rmd` from the file pane in the bottom right. Feel free to modify it, then click 'Knit' in the toolbar at the top of the main window. It will take a few minutes to render, as the PDF-rendering engine needs to download and install a few files, but the result will be a newly formatted version of `computed_manuscript.pdf`.
 
