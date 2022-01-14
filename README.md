@@ -10,8 +10,14 @@ This repository, created to accompany an in-development article at [*Nature maga
 
 ## To try this on your own computer:
 
-1.  'Clone' this manuscript by clicking the blue 'Code' button at the top of the [GitHub repository](https://github.com/jperkel/computed_manuscript) and downloading a ZIP archive of the repository to your computer.
-2.  Decompress the archive.
+1.  'Clone' this manuscript. From your computer's command line, execute:
+
+```
+git clone git@github.com:jperkel/computed_manuscript.git
+```
+
+(Alternatively, select click the blue 'Code' button at the top of the [GitHub repository](https://github.com/jperkel/computed_manuscript) to download a ZIP archive of the repository to your computer.)
+2.  Navigate to the manuscript directory (`cd computed_manuscript`).
 3.  If you haven't already done so, install the [R programming language](https://cran.r-project.org/) and [RStudio development environment](https://www.rstudio.com/).
 4.  Open `computed_manuscript.Rmd` in RStudio.
 5.  Install required packages. In the console window at the bottom of the RStudio window, execute the following command:
