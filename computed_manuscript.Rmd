@@ -61,7 +61,7 @@ Rather than analyzing those data and then copying the results into our manuscrip
 pi * r^2` ``" and "C = `` `r
 2 * pi * r` ``. Those evaluate to "A = **`r r = 10; round(pi * r^2, 3)`** and C = **`r r = 10; round(2 * pi * r, 3)`**".
 
-Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1)). The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
+Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1); see `R/mock_data.R` for code to generate the mock dataset). The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
 
 ```{r new-data}
 # read new dataset
