@@ -3,11 +3,11 @@ title: "My Example Computed Manuscript"
 subtitle: Created in Rmarkdown
 titlerunning: Example computed manuscript
 output:
+  word_document: default
+  pdf_document: default
   bookdown::pdf_book:
     base_format: rticles::springer_article
     extra_dependencies: booktabs
-  pdf_document: default
-  word_document: default
 abstract: "A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown}
   and {Rticles} packages were used to output the text in Springer Nature's desired
   manuscript format. \n"
