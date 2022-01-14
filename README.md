@@ -1,4 +1,4 @@
-# Executable manuscript
+# A model executable manuscript
 
 <!-- badges: start -->
 
@@ -6,9 +6,9 @@
 
 <!-- badges: end -->
 
-This repository demonstrates a fully executable manuscript. The manuscript itself is contained in the file `computed_manuscript.Rmd`; `computed_manuscript.pdf` contains the resulting formatted document, which is created automatically using the LaTeX typesetting system.
+This repository, created to accompany an in-development article at [*Nature magazine*](https://www.nature.com), demonstrates a fully executable manuscript. The text of the manuscript is contained in the file `computed_manuscript.Rmd`; `computed_manuscript.pdf` contains the resulting formatted document, which is created automatically using the LaTeX typesetting system.
 
-To try this on your own computer:
+## To try this on your own computer:
 
 1.  'Clone' this manuscript by clicking the blue 'Code' button at the top of the [GitHub repository](https://github.com/jperkel/computed_manuscript) and downloading a ZIP archive of the repository to your computer.
 2.  Decompress the archive.
@@ -29,9 +29,13 @@ tinytex::install_tinytex(version = "2022.01")
 
 7.  Click the 'Knit' button in the toolbar at the top of the main window to compile the Markdown file into a PDF.
 
-Thanks to huge help from [Ben Marwick](https://twitter.com/benmarwick) at the University of Washington in Seattle, you can also test-drive this repository without installing everything using the free and open-source [Binder](https://mybinder.org/) service, which allows users to recreate computational environments in the cloud. Click the 'Launch Binder' button above to launch RStudio in your web browser, including all required libraries. (It may take a few minutes to start.)
+## No-installation test-drive 
 
-Once RStudio is running, select `computed_manuscript.Rmd` from the file pane in the bottom right. Feel free to modify it if you want, then click 'Knit' in the toolbar at the top of the main window. It will take a few minutes to render, as the PDF-rendering engine needs to download a few files, but the result will be a newly formatted version of `computed_manuscript.pdf`.
+Thanks to major assistance from [Ben Marwick](https://twitter.com/benmarwick) at the University of Washington in Seattle, you can test-drive this repository without installing everything using the free and open-source [Binder](https://mybinder.org/) service, which allows users to [recreate computational environments](https://www.nature.com/articles/d41586-019-03366-x) in the cloud. Click the 'Launch Binder' button above to launch RStudio in your web browser, including all required libraries. (It may take a few minutes to start.)
+
+Once RStudio is running, select `computed_manuscript.Rmd` from the file pane in the bottom right. Feel free to modify it, then click 'Knit' in the toolbar at the top of the main window. It will take a few minutes to render, as the PDF-rendering engine needs to download and install a few files, but the result will be a newly formatted version of `computed_manuscript.pdf`.
+
+(Note, you may see a pop-up window saying that a new window failed to open. If that happens, click cancel, then select `computed_manuscripts.pdf` in the file window at bottom right to open it.)
 
 ## Continuous integration
 
