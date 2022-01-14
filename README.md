@@ -6,7 +6,7 @@
 
 <!-- badges: end -->
 
-This repository, created to accompany an in-development article at [*Nature magazine*](https://www.nature.com), demonstrates a fully executable manuscript. The text of the manuscript is contained in the file `computed_manuscript.Rmd`; `computed_manuscript.pdf` contains the resulting formatted document, which is created automatically using the LaTeX typesetting system.
+This repository, created to accompany an in-development article at [*Nature magazine*](https://www.nature.com), demonstrates a fully executable manuscript. The text of the manuscript is contained in the file `computed_manuscript.Rmd`; `computed_manuscript.pdf` and `computed_manuscript.docx` contain the resulting documents rendered in PDF and Microsoft Word format, respectively.
 
 ## To try this on your own computer:
 
@@ -33,7 +33,7 @@ install.packages("tidytex")
 tinytex::install_tinytex(version = "2022.01")
 ```
 
-7.  Click the 'Knit' button in the toolbar at the top of the main window to compile the Markdown file into a PDF.
+7.  Click the down-arrow icon immediately to the right of 'Knit' button in the toolbar at the top of the main window. Select 'Knit to pdf_book' or 'Knit to word_document' to compile the Markdown file into the desired format.
 
 ## No-installation test-drive 
 

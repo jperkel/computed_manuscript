@@ -1,23 +1,22 @@
 ---
-title: My Example Computed Manuscript
+title: "My Example Computed Manuscript"
 subtitle: Created in Rmarkdown
 titlerunning: Example computed manuscript
-
-authors: 
+output:
+  bookdown::pdf_book:
+    base_format: rticles::springer_article
+    extra_dependencies: booktabs
+  pdf_document: default
+  word_document: default
+abstract: "A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown}
+  and {Rticles} packages were used to output the text in Springer Nature's desired
+  manuscript format. \n"
+bibliography: bibliography.bib
+biblio-style: spbasic
+authors:
 - name: Jeffrey M. Perkel
   address: Springer Nature, 1 New York Plaza, New York, NY
   email: jeffrey.perkel@nature.com
-  
-abstract: |
-  A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown} and {Rticles} packages were used to output the text in Springer Nature's desired manuscript format. 
-
-bibliography: bibliography.bib
-biblio-style: spbasic
-# bibstyle options spbasic(default), spphys, spmpsci
-output: 
-  bookdown::pdf_book:
-    base_format: rticles::springer_article
-    extra_dependencies: ["booktabs"]
 csl: nature.csl
 ---
 
@@ -94,8 +93,6 @@ p <- final_data %>%
 p
 ```
 
-\newpage 
-
 # Code {#code}
 
 The following code was used to load, merge, and plot the (simulated) clinical trial data:
@@ -115,8 +112,6 @@ The following code was used to load, merge, and plot the (simulated) clinical tr
 ```{r show-code-5, echo=TRUE, eval=FALSE, ref.label='plot-data'}
 ```
 
-\newpage
-
 ```{r show-table-1}
 tmp <- cbind(df1[1:33,], rep('|', 33), 
              df1[34:66,], rep('|', 33), 
@@ -124,11 +119,9 @@ tmp <- cbind(df1[1:33,], rep('|', 33),
 names(tmp) <- c('ID', 'Class', 'Conc', '|', 'ID', 'Class', 'Conc', 
                 '|', 'ID', 'Class', 'Conc')
 
-knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
+knitr::kable(tmp, booktabs = TRUE, 
              caption = "Initial subject data")
 ```
-
-\newpage
 
 ```{r show-table-2}
 tmp <- cbind(df2[1:20,], rep('|', 20), 
@@ -137,7 +130,7 @@ tmp <- cbind(df2[1:20,], rep('|', 20),
 names(tmp) <- c('ID', 'Class', 'Conc', '|', 'ID', 'Class', 'Conc', 
                 '|', 'ID', 'Class', 'Conc')
 
-knitr::kable(tmp, format = 'latex', booktabs = TRUE, 
+knitr::kable(tmp, booktabs = TRUE, 
              caption = "New subject data")
 ```
 
