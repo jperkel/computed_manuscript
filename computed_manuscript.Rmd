@@ -59,7 +59,7 @@ Rather than analyzing those data and then copying the results into our manuscrip
 pi * r^2` ``" and "C = `` `r
 2 * pi * r` ``. Those evaluate to "A = **`r r = 10; round(pi * r^2, 3)`** and C = **`r r = 10; round(2 * pi * r, 3)`**".
 
-Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1)). The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r min(df1$conc)`**-**`r max(df1$conc)`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
+Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1)). The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
 
 ```{r new-data}
 # read new dataset
@@ -68,14 +68,14 @@ df2 <- read_csv('data/example-data-2.csv')
 
 ## Incorporating new data {#sec:2}
 
-Now suppose we get another tranche of data (Table \@ref(tab:show-table-2)). There are **`r nrow(df2)`** subjects in this new dataset. Their average concentration is **`r round(mean(df2$conc), 2)`** (range: **`r min(df2$conc)`**-**`r max(df2$conc)`**).
+Now suppose we get another tranche of data (Table \@ref(tab:show-table-2)). There are **`r nrow(df2)`** subjects in this new dataset. Their average concentration is **`r round(mean(df2$conc), 2)`** (range: **`r paste(min(df2$conc), max(df2$conc), sep = ' to ')`**).
 
 ```{r combine-tables}
 # merge datasets
 final_data <- rbind(df1, df2)
 ```
 
-Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average metabolite concentration is **`r round(mean(final_data$conc), 2)`** (range: **`r min(final_data$conc)`**-**`r max(final_data$conc)`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3.
+Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average metabolite concentration is **`r round(mean(final_data$conc), 2)`** (range: **`r paste(min(final_data$conc), max(final_data$conc), sep = ' to ')`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3.
 
 ## Plotting the data {#sec:3}
 

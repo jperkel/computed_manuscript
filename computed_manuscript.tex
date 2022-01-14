@@ -177,14 +177,14 @@ Imagine we are analyzing data from a clinical trial. We have grouped subjects in
 
 Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, to calculate the circumference and area of a circle with radius \emph{r} = 10, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}}'' and ``C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}. Those evaluate to''A = \textbf{314.159} and C = \textbf{62.832}".
 
-Returning to our dataset, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}). The average metabolite concentration is \textbf{185.36} (range: \textbf{78}-\textbf{298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
+Returning to our dataset, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}). The average metabolite concentration is \textbf{185.36} (range: \textbf{78 to 298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
 
 \hypertarget{sec:2}{%
 \subsection{Incorporating new data}\label{sec:2}}
 
-Now suppose we get another tranche of data (Table \ref{tab:show-table-2}). There are \textbf{60} subjects in this new dataset. Their average concentration is \textbf{185.13} (range: \textbf{77}-\textbf{299}).
+Now suppose we get another tranche of data (Table \ref{tab:show-table-2}). There are \textbf{60} subjects in this new dataset. Their average concentration is \textbf{185.13} (range: \textbf{77 to 299}).
 
-Combining the two datasets, we have a total of \textbf{159} subjects. The revised average metabolite concentration is \textbf{185.28} (range: \textbf{77}-\textbf{299}). We now have \textbf{55} subjects in Group 1, \textbf{60} subjects in Group 2, and \textbf{44} in Group 3.
+Combining the two datasets, we have a total of \textbf{159} subjects. The revised average metabolite concentration is \textbf{185.28} (range: \textbf{77 to 299}). We now have \textbf{55} subjects in Group 1, \textbf{60} subjects in Group 2, and \textbf{44} in Group 3.
 
 \hypertarget{sec:3}{%
 \subsection{Plotting the data}\label{sec:3}}
@@ -342,7 +342,7 @@ ID\_119 & Group 3 & 258 & | & ID\_139 & Group 1 & 108 & | & ID\_159 & Group 2 & 
 \hypertarget{colophon}{%
 \section{Colophon}\label{colophon}}
 
-This manuscript was built at \textbf{13 Jan 2022 12:32:08 MST} using the following computational environment and dependencies:
+This manuscript was built at \textbf{14 Jan 2022 11:43:44 MST} using the following computational environment and dependencies:
 
 \begin{verbatim}
 ## R version 4.0.4 (2021-02-15)
@@ -365,18 +365,18 @@ This manuscript was built at \textbf{13 Jan 2022 12:32:08 MST} using the followi
 ##  [9] tibble_3.1.6     ggplot2_3.3.3    tidyverse_1.3.0 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 digest_0.6.28   
+##  [1] Rcpp_1.0.7       lubridate_1.8.0  assertthat_0.2.1 digest_0.6.29   
 ##  [5] utf8_1.2.2       R6_2.5.1         cellranger_1.1.0 backports_1.2.1 
-##  [9] reprex_2.0.0     evaluate_0.14    highr_0.8        httr_1.4.2      
+##  [9] reprex_2.0.0     evaluate_0.14    highr_0.9        httr_1.4.2      
 ## [13] pillar_1.6.4     rlang_0.4.12     readxl_1.3.1     rstudioapi_0.13 
-## [17] rticles_0.22     rmarkdown_2.7    labeling_0.4.2   bit_4.0.4       
+## [17] rticles_0.22     rmarkdown_2.11   labeling_0.4.2   bit_4.0.4       
 ## [21] munsell_0.5.0    broom_0.7.6      compiler_4.0.4   vipor_0.4.5     
 ## [25] modelr_0.1.8     xfun_0.29        pkgconfig_2.0.3  htmltools_0.5.2 
-## [29] tidyselect_1.1.1 fansi_0.5.0      crayon_1.4.2     tzdb_0.2.0      
+## [29] tidyselect_1.1.1 fansi_1.0.0      crayon_1.4.2     tzdb_0.2.0      
 ## [33] dbplyr_2.1.0     withr_2.4.3      grid_4.0.4       jsonlite_1.7.2  
 ## [37] gtable_0.3.0     lifecycle_1.0.1  DBI_1.1.1        magrittr_2.0.1  
 ## [41] scales_1.1.1     cli_3.1.0        stringi_1.7.6    vroom_1.5.7     
-## [45] farver_2.1.0     fs_1.5.0         xml2_1.3.3       ellipsis_0.3.2  
+## [45] farver_2.1.0     fs_1.5.2         xml2_1.3.3       ellipsis_0.3.2  
 ## [49] generics_0.1.1   vctrs_0.3.8      tools_4.0.4      bit64_4.0.5     
 ## [53] glue_1.6.0       beeswarm_0.4.0   hms_1.1.1        parallel_4.0.4  
 ## [57] fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-0 rvest_1.0.2     
@@ -386,7 +386,7 @@ This manuscript was built at \textbf{13 Jan 2022 12:32:08 MST} using the followi
 The current Git commit details are:
 
 \begin{verbatim}
-## [b8e6a6f] 2022-01-13: Add colophon; adjust doc layout
+## [56e9fbc] 2022-01-14: Update README.md
 \end{verbatim}
 
 \hypertarget{references}{%
