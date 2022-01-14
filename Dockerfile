@@ -12,4 +12,4 @@ RUN if [ -f install.R ]; then R --quiet -f install.R; fi
 # go into the repo directory
 RUN . /etc/environment \
   # render the manuscript into a docx
-  && R -e "rmarkdown::render('SN_templates.Rmd')"
+  && R -e "rmarkdown::render('computed_manuscript.Rmd')"
