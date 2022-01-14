@@ -2,9 +2,12 @@
 title: "My Example Computed Manuscript"
 subtitle: Created in Rmarkdown
 titlerunning: Example computed manuscript
+date: "`r format(Sys.time(), '%d %b %Y %H:%M:%S %Z')`"
+author: "Jeffrey M. Perkel, Technology Editor, Nature"
 output:
-  word_document: default
+  html_document: default
   pdf_document: default
+  word_document: default
   bookdown::pdf_book:
     base_format: rticles::springer_article
     extra_dependencies: booktabs
@@ -37,11 +40,11 @@ library(bookdown)
 
 "Literate programming" is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility.[@shen2014; @perkel2018a; @perkel2018] (These references were added into the document using RStudio's integration with the open-source Zotero reference manager [@perkel2020] plus the [Better BibTeX](https://retorque.re/zotero-better-bibtex/) Zotero plugin.)
 
-Several platforms for creating such documents exist, including Jupyter, R Markdown and Observable notebooks.[@perkel2021] Typically, these documents interleave code and text 'blocks' to build a computational narrative. But some, including R Markdown and the JupyterBook extension to the Jupyter ecosystem, also allow authors to include and execute code "inline" -- that is, within the text itself.
+Several platforms for creating such documents exist.[@perkel2021] Typically, these documents interleave code and text 'blocks' to build a computational narrative. But some, including R Markdown, Observable, and the JupyterBook extension to the Jupyter ecosystem, also allow authors to include and execute code "inline" -- that is, within the text itself.
 
 This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the 'killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise.
 
-In this manuscript, created in RStudio using the R Markdown language, we will create such an example.
+In this manuscript, created in RStudio using the R Markdown language, we will demonstrate one such example.
 
 # Results {#results}
 
