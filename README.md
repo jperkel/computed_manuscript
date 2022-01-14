@@ -14,7 +14,7 @@ To try this on your own computer:
 2.  Decompress the archive.
 3.  If you haven't already done so, install the [R programming language](https://cran.r-project.org/) and [RStudio development environment](https://www.rstudio.com/).
 4.  Open `computed_manuscript.Rmd` in RStudio.
-5.  Install required packages. In the console window at the bottom of the RStudio window, type the following command:
+5.  Install required packages. In the console window at the bottom of the RStudio window, execute the following command:
 
 ```
 install.packages(c("tidyverse","bookdown","rticles","here","ggbeeswarm"))
