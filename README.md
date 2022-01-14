@@ -16,7 +16,8 @@ This repository, created to accompany an in-development article at [*Nature maga
 git clone git@github.com:jperkel/computed_manuscript.git
 ```
 
-(Alternatively, select click the blue 'Code' button at the top of the [GitHub repository](https://github.com/jperkel/computed_manuscript) to download a ZIP archive of the repository to your computer.)
+(Alternatively, select click the blue 'Code' button at the top of the [GitHub repository](https://github.com/jperkel/computed_manuscript) to download a ZIP archive of the repository to your computer.). 
+
 2.  Navigate to the manuscript directory (`cd computed_manuscript`).
 3.  If you haven't already done so, install the [R programming language](https://cran.r-project.org/) and [RStudio development environment](https://www.rstudio.com/).
 4.  Open `computed_manuscript.Rmd` in RStudio.
