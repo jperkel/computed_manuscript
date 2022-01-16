@@ -175,7 +175,7 @@ In this manuscript, created in RStudio using the R Markdown language, we will de
 
 Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
 
-Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, to calculate the circumference and area of a circle with radius \emph{r} = 10, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}}'' and ``C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}. Those evaluate to''A = \textbf{314.159} and C = \textbf{62.832}".
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, to calculate the circumference and area of a circle with radius \emph{r} = \textbf{10}, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}} and C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}''. That evaluates to ``A = \textbf{314.159} and C = \textbf{62.832}''.
 
 Returning to our dataset, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}; see \texttt{R/mock\_data.R} for code to generate the mock dataset). The average metabolite concentration is \textbf{185.36} (range: \textbf{78 to 298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
 
@@ -336,7 +336,7 @@ ID\_119 & Group 3 & 258 & | & ID\_139 & Group 1 & 108 & | & ID\_159 & Group 2 & 
 \hypertarget{colophon}{%
 \section{Colophon}\label{colophon}}
 
-This manuscript was built at \textbf{15 Jan 2022 15:04:15 MST} using the following computational environment and dependencies:
+This manuscript was built at \textbf{16 Jan 2022 13:26:49 MST} using the following computational environment and dependencies:
 
 \begin{verbatim}
 ## R version 4.0.4 (2021-02-15)
@@ -380,7 +380,7 @@ This manuscript was built at \textbf{15 Jan 2022 15:04:15 MST} using the followi
 The current Git commit details are:
 
 \begin{verbatim}
-## [430c87d] 2022-01-15: Use bookdown::word_document2 and bookdown::html_document2 output formats
+## [d4352f5] 2022-01-16: Define radius.
 \end{verbatim}
 
 \hypertarget{references}{%
