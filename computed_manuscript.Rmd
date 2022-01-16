@@ -58,8 +58,8 @@ df1 <- read_csv('data/example-data-1.csv')
 ```
 
 Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, to calculate the circumference and area of a circle with radius *r* = 10, you could write "A = `` `r
-pi * r^2` ``" and "C = `` `r
-2 * pi * r` ``. Those evaluate to "A = **`r r = 10; round(pi * r^2, 3)`** and C = **`r r = 10; round(2 * pi * r, 3)`**".
+pi * r^2` `` and C = `` `r
+2 * pi * r` ``". That evaluates to "A = **`r r = 10; round(pi * r^2, 3)`** and C = **`r r = 10; round(2 * pi * r, 3)`**".
 
 Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1); see `R/mock_data.R` for code to generate the mock dataset). The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
 
