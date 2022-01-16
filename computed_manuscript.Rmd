@@ -5,12 +5,12 @@ titlerunning: Example computed manuscript
 date: "`r format(Sys.time(), '%d %b %Y %H:%M:%S %Z')`"
 author: "Jeffrey M. Perkel, Technology Editor, Nature"
 output:
+  bookdown::word_document2: default
+  pdf_document: default
+  bookdown::html_document2: default
   bookdown::pdf_book:
     base_format: rticles::springer_article
     extra_dependencies: booktabs
-  pdf_document: default
-  bookdown::word_document2: default
-  bookdown::html_document2: default
 abstract: "A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown}
   and {Rticles} packages were used to output the text in Springer Nature's desired
   manuscript format. \n"
@@ -57,9 +57,14 @@ Imagine we are analyzing data from a clinical trial. We have grouped subjects in
 df1 <- read_csv('data/example-data-1.csv')
 ```
 
-Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, to calculate the circumference and area of a circle with radius *r* = 10, you could write "A = `` `r
+```{r radius}
+# radius of a circle
+r = 10
+```
+
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, to calculate the circumference and area of a circle with radius *r* = **`r r`**, you could write "A = `` `r
 pi * r^2` `` and C = `` `r
-2 * pi * r` ``". That evaluates to "A = **`r r = 10; round(pi * r^2, 3)`** and C = **`r r = 10; round(2 * pi * r, 3)`**".
+2 * pi * r` ``". That evaluates to "A = **`r round(pi * r^2, 3)`** and C = **`r round(2 * pi * r, 3)`**".
 
 Returning to our dataset, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1); see `R/mock_data.R` for code to generate the mock dataset). The average metabolite concentration is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
 
