@@ -163,9 +163,9 @@ A mock computed manuscript created in RStudio using \{Rmarkdown\}. The \{Bookdow
 
 Several platforms for creating such documents exist.\textsuperscript{5} Typically, these documents interleave code and text `blocks' to build a computational narrative. But some, including R Markdown, Observable, and the JupyterBook extension to the Jupyter ecosystem, also allow authors to include and execute code ``inline'' -- that is, within the text itself.
 
-This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise.
+This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at \textbf{29 Jan 2022 11:22:01 MST} and calls the following R packages: \texttt{\{tidyverse\}} ver. \textbf{1.3.0}, \texttt{\{ggbeeswarm\}} ver. \textbf{0.6.0} and \texttt{\{bookdown\}} ver. \textbf{0.24}.
 
-In this manuscript, created in RStudio using the R Markdown language, we will demonstrate one such example.
+In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (A JavaScript version is available at \url{https://observablehq.com/d/7a08166446057936}.)
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -175,21 +175,17 @@ In this manuscript, created in RStudio using the R Markdown language, we will de
 
 Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
 
-Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, to calculate the circumference and area of a circle with radius \emph{r} = \textbf{10}, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}} and C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}''. That evaluates to ``A = \textbf{314.159} and C = \textbf{62.832}''.
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, to calculate the circumference and area of a circle with radius \emph{r} = \textbf{10}, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}} and C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}''. That evaluates to ``A = \textbf{314.16} and C = \textbf{62.83}''.
 
-Returning to our dataset, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}; see \texttt{R/mock\_data.R} for code to generate the mock dataset). The average metabolite concentration is \textbf{185.36} (range: \textbf{78 to 298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
+Returning to our dataset, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}; see \href{https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R}{\texttt{R/mock\_data.R}} in the GitHub repository for code to generate the mock dataset). Note the numbering of the tables, figures and sections in this document -- that's accomplished automatically thanks to the \texttt{\{bookdown\}} package.
+The average metabolite concentration in our dataset is \textbf{185.36} (range: \textbf{78 to 298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
 
 \hypertarget{sec:2}{%
 \subsection{Incorporating new data}\label{sec:2}}
 
 Now suppose we get another tranche of data (Table \ref{tab:show-table-2}). There are \textbf{60} subjects in this new dataset. Their average concentration is \textbf{185.13} (range: \textbf{77 to 299}).
 
-Combining the two datasets, we have a total of \textbf{159} subjects. The revised average metabolite concentration is \textbf{185.28} (range: \textbf{77 to 299}). We now have \textbf{55} subjects in Group 1, \textbf{60} subjects in Group 2, and \textbf{44} in Group 3.
-
-\hypertarget{sec:3}{%
-\subsection{Plotting the data}\label{sec:3}}
-
-We can also create and include figures during manuscript creation. Here we graph boxplots of our clinical trial data. The data are shown in Figure \ref{fig:plot-data}. Note that this figure number (as well as the table numbers above) is automatically generated.
+Combining the two datasets, we have a total of \textbf{159} subjects. The revised average metabolite concentration is \textbf{185.28} (range: \textbf{77 to 299}). We now have \textbf{55} subjects in Group 1, \textbf{60} subjects in Group 2, and \textbf{44} in Group 3. The concentration distribution for each group is shown graphically in Figure \ref{fig:plot-data}.
 
 \begin{figure}
 \centering
@@ -236,8 +232,8 @@ The following code was used to load, merge, and plot the (simulated) clinical tr
 \begin{Highlighting}[]
 \CommentTok{\# plot the data}
 \NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ final\_data }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ class, }\AttributeTok{y =}\NormalTok{ conc, }\AttributeTok{color =}\NormalTok{ class)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ class, }\AttributeTok{y =}\NormalTok{ conc, }\AttributeTok{fill =}\NormalTok{ class, }\AttributeTok{color =}\NormalTok{ class)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{outlier.shape =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{) }\SpecialCharTok{+}
 \NormalTok{  ggbeeswarm}\SpecialCharTok{::}\FunctionTok{geom\_quasirandom}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"Metabolite concentration"}\NormalTok{) }\SpecialCharTok{+} 
@@ -336,12 +332,12 @@ ID\_119 & Group 3 & 258 & | & ID\_139 & Group 1 & 108 & | & ID\_159 & Group 2 & 
 \hypertarget{colophon}{%
 \section{Colophon}\label{colophon}}
 
-This manuscript was built at \textbf{16 Jan 2022 13:26:49 MST} using the following computational environment and dependencies:
+This manuscript was built at \textbf{29 Jan 2022 11:22:02 MST} using the following computational environment and dependencies:
 
 \begin{verbatim}
 ## R version 4.0.4 (2021-02-15)
 ## Platform: x86_64-apple-darwin17.0 (64-bit)
-## Running under: macOS Mojave 10.14.6
+## Running under: macOS Big Sur 10.16
 ## 
 ## Matrix products: default
 ## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
@@ -380,7 +376,7 @@ This manuscript was built at \textbf{16 Jan 2022 13:26:49 MST} using the followi
 The current Git commit details are:
 
 \begin{verbatim}
-## [d4352f5] 2022-01-16: Define radius.
+## [f8d7837] 2022-01-29: Merge branch 'main' of github.com:jperkel/computed_manuscript
 \end{verbatim}
 
 \hypertarget{references}{%
