@@ -5,12 +5,12 @@ titlerunning: Example computed manuscript
 date: "`r format(Sys.time(), '%d %b %Y %H:%M:%S %Z')`"
 author: "Jeffrey M. Perkel, Technology Editor, Nature"
 output:
-  bookdown::html_document2: default
-  pdf_document: default
   bookdown::pdf_book:
     base_format: rticles::springer_article
     extra_dependencies: booktabs
+  pdf_document: default
   bookdown::word_document2: default
+  bookdown::html_document2: default
 abstract: "A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown}
   and {Rticles} packages were used to output the text in Springer Nature's desired
   manuscript format. \n"
@@ -62,7 +62,7 @@ df1 <- read_csv('data/example-data-1.csv')
 r = 10
 ```
 
-Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, we could calculate the circumference and area of a circle (written in $\LaTeX$): 
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, we could calculate the circumference and area of a circle (written in LaTeX): 
 
 $$A = \pi r^2, C = 2 \pi r$$
 

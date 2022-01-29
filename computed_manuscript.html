@@ -199,7 +199,7 @@ pre code {
 <h1 class="title toc-ignore">My Example Computed Manuscript</h1>
 <h3 class="subtitle">Created in Rmarkdown</h3>
 <h4 class="author">Jeffrey M. Perkel, Technology Editor, Nature</h4>
-<h4 class="date">29 Jan 2022 11:21:51 MST</h4>
+<h4 class="date">29 Jan 2022 12:11:03 MST</h4>
 <div class="abstract">
 <p class="abstract">Abstract</p>
 <p>A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown} and {Rticles} packages were used to output the text in Springer Nature’s desired manuscript format.</p>
@@ -212,7 +212,7 @@ pre code {
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>“Literate programming” is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility.<span class="citation"><sup>1–3</sup></span> (These references were added into the document using RStudio’s integration with the open-source Zotero reference manager<span class="citation"><sup>4</sup></span> plus the <a href="https://retorque.re/zotero-better-bibtex/">Better BibTeX</a> Zotero plugin.)</p>
 <p>Several platforms for creating such documents exist.<span class="citation"><sup>5</sup></span> Typically, these documents interleave code and text ‘blocks’ to build a computational narrative. But some, including R Markdown, Observable, and the JupyterBook extension to the Jupyter ecosystem, also allow authors to include and execute code “inline” – that is, within the text itself.</p>
-<p>This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the ‘killer feature’ of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at <strong>29 Jan 2022 11:21:52 MST</strong> and calls the following R packages: <code>{tidyverse}</code> ver. <strong>1.3.0</strong>, <code>{ggbeeswarm}</code> ver. <strong>0.6.0</strong> and <code>{bookdown}</code> ver. <strong>0.24</strong>.</p>
+<p>This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the ‘killer feature’ of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at <strong>29 Jan 2022 12:11:05 MST</strong> and calls the following R packages: <code>{tidyverse}</code> ver. <strong>1.3.0</strong>, <code>{ggbeeswarm}</code> ver. <strong>0.6.0</strong> and <code>{bookdown}</code> ver. <strong>0.24</strong>.</p>
 <p>In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (A JavaScript version is available at <a href="https://observablehq.com/d/7a08166446057936">https://observablehq.com/d/7a08166446057936</a>.)</p>
 </div>
 <div id="results" class="section level1" number="2">
@@ -220,9 +220,11 @@ pre code {
 <div id="sec:1" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Inline computation</h2>
 <p>Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)</p>
-<p>Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language <code>R</code> to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter <code>r</code>. For instance, to calculate the circumference and area of a circle with radius <em>r</em> = <strong>10</strong>, you could write “A = <code>`r pi * r^2`</code> and C = <code>`r 2 * pi * r`</code>”. That evaluates to “A = <strong>314.16</strong> and C = <strong>62.83</strong>”.</p>
-<p>Returning to our dataset, we have <strong>99</strong> (simulated) subjects in our study (see Table <a href="#tab:show-table-1">3.1</a>; see <a href="https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R"><code>R/mock_data.R</code></a> in the GitHub repository for code to generate the mock dataset). Note the numbering of the tables, figures and sections in this document – that’s accomplished automatically thanks to the <code>{bookdown}</code> package.
-The average metabolite concentration in our dataset is <strong>185.36</strong> (range: <strong>78 to 298</strong>). We have <strong>32</strong> subjects in Group 1, <strong>43</strong> subjects in Group 2, and <strong>24</strong> in Group 3. (The numbers in <strong>bold face type</strong> throughout this document are computed values.)</p>
+<p>Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language <code>R</code> to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter <code>r</code>. For instance, we could calculate the circumference and area of a circle (written in LaTeX):</p>
+<p><span class="math display">\[A = \pi r^2, C = 2 \pi r\]</span></p>
+<p>Plugging in the radius <em>r</em> = <strong>10</strong>, you could write “A = <code>`r pi * r^2`</code> and C = <code>`r 2 * pi * r`</code>”. That evaluates to “A = <strong>314.16</strong> and C = <strong>62.83</strong>”.</p>
+<p>Returning to our dataset, we have <strong>99</strong> (simulated) subjects in our study (see Table <a href="#tab:show-table-1">3.1</a>; see <a href="https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R"><code>R/mock_data.R</code></a> in the GitHub repository for code to generate the mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the <code>{bookdown}</code> package.</p>
+<p>The average metabolite concentration in our dataset is <strong>185.36</strong> (range: <strong>78 to 298</strong>). We have <strong>32</strong> subjects in Group 1, <strong>43</strong> subjects in Group 2, and <strong>24</strong> in Group 3. (The numbers in <strong>bold face type</strong> throughout this document are computed values.)</p>
 </div>
 <div id="sec:2" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Incorporating new data</h2>
@@ -991,7 +993,7 @@ p</code></pre>
 </div>
 <div id="colophon" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Colophon</h1>
-<p>This manuscript was built at <strong>29 Jan 2022 11:21:53 MST</strong> using the following computational environment and dependencies:</p>
+<p>This manuscript was built at <strong>29 Jan 2022 12:11:05 MST</strong> using the following computational environment and dependencies:</p>
 <pre><code>## R version 4.0.4 (2021-02-15)
 ## Platform: x86_64-apple-darwin17.0 (64-bit)
 ## Running under: macOS Big Sur 10.16
@@ -1029,7 +1031,7 @@ p</code></pre>
 ## [57] parallel_4.0.4   fastmap_1.1.0    yaml_2.2.1       colorspace_2.0-0
 ## [61] rvest_1.0.2      knitr_1.37       haven_2.3.1      sass_0.4.0</code></pre>
 <p>The current Git commit details are:</p>
-<pre><code>## [f8d7837] 2022-01-29: Merge branch &#39;main&#39; of github.com:jperkel/computed_manuscript</code></pre>
+<pre><code>## [acd247d] 2022-01-29: Add equations in LaTeX.</code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
