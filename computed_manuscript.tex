@@ -163,7 +163,7 @@ A mock computed manuscript created in RStudio using \{Rmarkdown\}. The \{Bookdow
 
 Several platforms for creating such documents exist.\textsuperscript{5} Typically, these documents interleave code and text `blocks' to build a computational narrative. But some, including R Markdown, Observable, and the JupyterBook extension to the Jupyter ecosystem, also allow authors to include and execute code ``inline'' -- that is, within the text itself.
 
-This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at \textbf{29 Jan 2022 12:11:18 MST} and calls the following R packages: \texttt{\{tidyverse\}} ver. \textbf{1.3.0}, \texttt{\{ggbeeswarm\}} ver. \textbf{0.6.0} and \texttt{\{bookdown\}} ver. \textbf{0.24}.
+This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at \textbf{31 Jan 2022 16:23:21 MST} and calls the following R packages: \texttt{\{tidyverse\}} ver. \textbf{1.3.0}, \texttt{\{ggbeeswarm\}} ver. \textbf{0.6.0} and \texttt{\{bookdown\}} ver. \textbf{0.24}.
 
 In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (A JavaScript version is available at \url{https://observablehq.com/d/7a08166446057936}.)
 
@@ -175,13 +175,13 @@ In this manuscript, created in RStudio using the R Markdown language, we will de
 
 Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
 
-Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, we could calculate the circumference and area of a circle (written in LaTeX):
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language \texttt{R} to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter \texttt{r}. For instance, we could calculate the circumference and area of a circle:
 
 \[A = \pi r^2, C = 2 \pi r\]
 
-Plugging in the radius \emph{r} = \textbf{10}, you could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}} and C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}''. That evaluates to ``A = \textbf{314.16} and C = \textbf{62.83}''.
+You could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}} and C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}''. Plugging in the radius \emph{r} = \textbf{10}, that evaluates to ``A = \textbf{314.16} and C = \textbf{62.83}''.
 
-Returning to our dataset, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}; see \href{https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R}{\texttt{R/mock\_data.R}} in the GitHub repository for code to generate the mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the \texttt{\{bookdown\}} package.
+Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}; see \href{https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R}{\texttt{R/mock\_data.R}} in the GitHub repository for code to generate the mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the \texttt{\{bookdown\}} package.
 
 The average metabolite concentration in our dataset is \textbf{185.36} (range: \textbf{78 to 298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
 
@@ -337,7 +337,7 @@ ID\_119 & Group 3 & 258 & | & ID\_139 & Group 1 & 108 & | & ID\_159 & Group 2 & 
 \hypertarget{colophon}{%
 \section{Colophon}\label{colophon}}
 
-This manuscript was built at \textbf{29 Jan 2022 12:11:19 MST} using the following computational environment and dependencies:
+This manuscript was built at \textbf{31 Jan 2022 16:23:22 MST} using the following computational environment and dependencies:
 
 \begin{verbatim}
 ## R version 4.0.4 (2021-02-15)
@@ -381,7 +381,7 @@ This manuscript was built at \textbf{29 Jan 2022 12:11:19 MST} using the followi
 The current Git commit details are:
 
 \begin{verbatim}
-## [acd247d] 2022-01-29: Add equations in LaTeX.
+## [e186c2c] 2022-01-31: Update Rmd text.
 \end{verbatim}
 
 \hypertarget{references}{%
