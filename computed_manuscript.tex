@@ -163,7 +163,7 @@ A mock computed manuscript created in RStudio using \{Rmarkdown\}. The \{Bookdow
 
 Several platforms for creating such documents exist.\textsuperscript{5} Typically, these documents interleave code and text `blocks' to build a computational narrative. But some, including \href{https://rmarkdown.rstudio.com/}{R Markdown}, \href{https://www.observablehq.com}{Observable}, and the \href{https://jupyterbook.org/intro.html}{Jupyter Book} extension to the Jupyter ecosystem, also allow authors to include and execute code ``inline'' -- that is, within the text itself.
 
-This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at \textbf{01 Feb 2022 17:19:06 MST} and calls the following R packages: \texttt{\{tidyverse\}} ver. \textbf{1.3.0}, \texttt{\{ggbeeswarm\}} ver. \textbf{0.6.0} and \texttt{\{bookdown\}} ver. \textbf{0.24}.
+This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at \textbf{02 Feb 2022 10:28:23 MST} and calls the following R packages: \texttt{\{tidyverse\}} ver. \textbf{1.3.0}, \texttt{\{ggbeeswarm\}} ver. \textbf{0.6.0} and \texttt{\{bookdown\}} ver. \textbf{0.24}.
 
 In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (A JavaScript version is available at \url{https://observablehq.com/d/7a08166446057936}.)
 
@@ -198,10 +198,32 @@ Combining the two datasets, we have a total of \textbf{159} subjects. The revise
 \caption{\label{fig:plot-data}Metabolite concentration of clinical trial subjects}
 \end{figure}
 
+\hypertarget{incorporating-a-child-document}{%
+\subsection{Incorporating a child document}\label{incorporating-a-child-document}}
+
+Authors can break long manuscripts into more manageable pieces by using the R Markdown \texttt{child} option. The text in this section is pulled in from a second file, \texttt{child\_doc.Rmd}, and inserted into the final document. Citations that are created in the child automatically get inserted into the final document, like so: here's a reference for the \href{https://bookdown.org/yihui/rmarkdown-cookbook/}{R Markdown Cookbook}.\textsuperscript{6}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# number of samples in our new dataset}
+\NormalTok{samples }\OtherTok{\textless{}{-}} \DecValTok{50}
+\end{Highlighting}
+\end{Shaded}
+
+Using the \texttt{build\_mock\_dataset()} function in the file \texttt{R/mock\_data.R}, we can create and add a third set of numbers to our growing dataset. By changing the \texttt{samples} value in the code cell above, you can make this dataset as big as you'd like, but for now, it contains \textbf{50} samples.
+
+These final data are shown in Table \ref{tab:show-table-3}. Folding them into our existing dataset gives us \textbf{209} subjects: \textbf{73} in Group 1, \textbf{70} in Group 2, and \textbf{66} in Group 3. The new concentration distribution is shown graphically in Figure \ref{fig:plot-data-2}.
+
+\begin{figure}
+\centering
+\includegraphics{computed_manuscript_files/figure-latex/plot-data-2-1.pdf}
+\caption{\label{fig:plot-data-2}Metabolite concentration of final clinical trial dataset}
+\end{figure}
+
 \hypertarget{code}{%
 \section{Code}\label{code}}
 
-The following code was used to load, merge, and plot the (simulated) clinical trial data:
+The following code was used to load, merge, and plot the (simulated) clinical trial data in Figure \ref{fig:plot-data}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -235,16 +257,25 @@ The following code was used to load, merge, and plot the (simulated) clinical tr
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# create a box{-}plot with overlaid points}
+\NormalTok{create\_plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(mytable) \{}
+\NormalTok{  p }\OtherTok{\textless{}{-}}\NormalTok{ mytable }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ class, }\AttributeTok{y =}\NormalTok{ conc, }\AttributeTok{fill =}\NormalTok{ class, }\AttributeTok{color =}\NormalTok{ class)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{outlier.shape =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{    ggbeeswarm}\SpecialCharTok{::}\FunctionTok{geom\_quasirandom}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+} 
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Metabolite concentration"}\NormalTok{) }\SpecialCharTok{+} 
+    \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\NormalTok{  p}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# plot the data}
-\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ final\_data }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ class, }\AttributeTok{y =}\NormalTok{ conc, }\AttributeTok{fill =}\NormalTok{ class, }\AttributeTok{color =}\NormalTok{ class)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{outlier.shape =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{) }\SpecialCharTok{+}
-\NormalTok{  ggbeeswarm}\SpecialCharTok{::}\FunctionTok{geom\_quasirandom}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.25}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Metabolite concentration"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
-\NormalTok{p}
+\FunctionTok{create\_plot}\NormalTok{(final\_data)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -334,10 +365,42 @@ ID\_119 & Group 3 & 258 & | & ID\_139 & Group 1 & 108 & | & ID\_159 & Group 2 & 
 \end{tabular}
 \end{table}
 
+\begin{table}
+
+\caption{\label{tab:show-table-3}Third subject data}
+\centering
+\begin{tabular}[t]{lllllllllll}
+\toprule
+ID & Class & Conc & | & ID & Class & Conc & | & ID & Class & Conc\\
+\midrule
+ID\_1 & Group 3 & 245 & | & ID\_18 & Group 3 & 237 & | & ID\_35 & Group 3 & 125\\
+ID\_2 & Group 3 & 214 & | & ID\_19 & Group 3 & 115 & | & ID\_36 & Group 2 & 103\\
+ID\_3 & Group 2 & 270 & | & ID\_20 & Group 1 & 226 & | & ID\_37 & Group 2 & 87\\
+ID\_4 & Group 3 & 152 & | & ID\_21 & Group 1 & 284 & | & ID\_38 & Group 2 & 275\\
+ID\_5 & Group 1 & 164 & | & ID\_22 & Group 3 & 269 & | & ID\_39 & Group 2 & 223\\
+\addlinespace
+ID\_6 & Group 1 & 188 & | & ID\_23 & Group 3 & 225 & | & ID\_40 & Group 1 & 180\\
+ID\_7 & Group 3 & 165 & | & ID\_24 & Group 3 & 276 & | & ID\_41 & Group 2 & 297\\
+ID\_8 & Group 3 & 153 & | & ID\_25 & Group 3 & 258 & | & ID\_42 & Group 1 & 138\\
+ID\_9 & Group 1 & 212 & | & ID\_26 & Group 2 & 252 & | & ID\_43 & Group 3 & 189\\
+ID\_10 & Group 1 & 183 & | & ID\_27 & Group 1 & 282 & | & ID\_44 & Group 3 & 138\\
+\addlinespace
+ID\_11 & Group 1 & 156 & | & ID\_28 & Group 1 & 255 & | & ID\_45 & Group 3 & 221\\
+ID\_12 & Group 3 & 99 & | & ID\_29 & Group 1 & 294 & | & ID\_46 & Group 3 & 203\\
+ID\_13 & Group 1 & 299 & | & ID\_30 & Group 3 & 107 & | & ID\_47 & Group 1 & 266\\
+ID\_14 & Group 1 & 238 & | & ID\_31 & Group 2 & 123 & | & ID\_48 & Group 3 & 298\\
+ID\_15 & Group 3 & 294 & | & ID\_32 & Group 3 & 232 & | & ID\_49 & Group 1 & 206\\
+\addlinespace
+ID\_16 & Group 1 & 170 & | & ID\_33 & Group 2 & 202 & | & ID\_50 & Group 1 & 101\\
+ID\_17 & Group 3 & 96 & | & ID\_34 & Group 2 & 263 & | &  &  & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \hypertarget{colophon}{%
 \section{Colophon}\label{colophon}}
 
-This manuscript was built at \textbf{01 Feb 2022 17:19:07 MST} using the following computational environment and dependencies:
+This manuscript was built at \textbf{02 Feb 2022 10:28:24 MST} using the following computational environment and dependencies:
 
 \begin{verbatim}
 ## R version 4.0.4 (2021-02-15)
@@ -381,7 +444,7 @@ This manuscript was built at \textbf{01 Feb 2022 17:19:07 MST} using the followi
 The current Git commit details are:
 
 \begin{verbatim}
-## [34f14f2] 2022-02-02: Add a generic function to print a table 3cols wide
+## [10dc11d] 2022-02-02: Add a child document.
 \end{verbatim}
 
 \hypertarget{references}{%
@@ -409,6 +472,10 @@ The current Git commit details are:
 \leavevmode\hypertarget{ref-perkel2021}{}%
 \CSLLeftMargin{5. }
 \CSLRightInline{Perkel, J. M. Reactive, reproducible, collaborative: computational notebooks evolve. \emph{Nature} \textbf{593}, 156--157 (2021).}
+
+\leavevmode\hypertarget{ref-xieMarkdownCookbook2020}{}%
+\CSLLeftMargin{6. }
+\CSLRightInline{Xie, Y., Dervieux, C. \& Riederer, E. \emph{R {Markdown Cookbook}}. ({Chapman and Hall/CRC}, 2020).}
 
 \end{CSLReferences}
 
