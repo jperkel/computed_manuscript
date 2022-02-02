@@ -1,0 +1,33 @@
+---
+title: "child_doc.Rmd"
+output: html_document
+---
+
+## Incorporating a child document
+
+Authors can break long manuscripts into more manageable pieces by using the R Markdown `child` option. The text in this section is pulled in from a second file, `child_doc.Rmd`, and inserted into the final document. Citations that are created in the child automatically get inserted into the final document, like so: here's a reference for the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/).[@xieMarkdownCookbook2020]
+
+```{r source-file}
+# load build_mock_dataset() function
+source('R/mock_data.R') 
+```
+
+```{r declare-sample-size, echo=TRUE}
+# number of samples in our new dataset
+samples <- 50
+```
+
+Using the `build_mock_dataset()` function in the file `R/mock_data.R`, we can create and add a third set of numbers to our growing dataset. By changing the `samples` value in the code cell above, you can make this dataset as big as you'd like, but for now, it contains **`r samples`** samples.
+
+```{r third-dataset}
+df3 <- build_mock_dataset(samples)
+really_final_data <- rbind(final_data, df3)
+```
+
+These final data are shown in Table \@ref(tab:show-table-3). Folding them into our existing dataset gives us **`r nrow(really_final_data)`** subjects: **`r really_final_data %>% filter(class == 'Group 1') %>% nrow()`** in Group 1, **`r really_final_data %>% filter(class == 'Group 2') %>% nrow()`** in Group 2, and **`r really_final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. The new concentration distribution is shown graphically in Figure \@ref(fig:plot-data-2).
+
+```{r plot-data-2, fig.cap="Metabolite concentration of final clinical trial dataset", fig.height=3, fig.width=4}
+# plot the data
+create_plot(really_final_data)
+
+```

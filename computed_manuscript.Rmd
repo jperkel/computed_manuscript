@@ -5,11 +5,11 @@ titlerunning: Example computed manuscript
 date: "`r format(Sys.time(), '%d %b %Y %H:%M:%S %Z')`"
 author: "Jeffrey M. Perkel, Technology Editor, Nature"
 output:
+  bookdown::html_document2: default
+  pdf_document: default
   bookdown::pdf_book:
     base_format: rticles::springer_article
     extra_dependencies: booktabs
-  pdf_document: default
-  bookdown::html_document2: default
   bookdown::word_document2: default
 abstract: "A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown}
   and {Rticles} packages were used to output the text in Springer Nature's desired
@@ -44,7 +44,7 @@ Several platforms for creating such documents exist.[@perkel2021] Typically, the
 
 This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the 'killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at **`r format(Sys.time(), "%d %b %Y %H:%M:%S %Z")`** and calls the following R packages: `{tidyverse}` ver. **`r packageVersion("tidyverse")`**, `{ggbeeswarm}` ver. **`r packageVersion("ggbeeswarm")`** and `{bookdown}` ver. **`r packageVersion("bookdown")`**.
 
-In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (A JavaScript version is available at [https://observablehq.com/d/7a08166446057936](https://observablehq.com/d/7a08166446057936).)
+In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (A JavaScript version is available at <https://observablehq.com/d/7a08166446057936>.)
 
 # Results {#results}
 
@@ -62,7 +62,7 @@ df1 <- read_csv('data/example-data-1.csv')
 r = 10
 ```
 
-Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, we could calculate the circumference and area of a circle: 
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, we could calculate the circumference and area of a circle:
 
 $$A = \pi r^2, C = 2 \pi r$$
 
@@ -70,7 +70,7 @@ You could write "A = `` `r
 pi * r^2` `` and C = `` `r
 2 * pi * r` ``". Plugging in the radius *r* = **`r r`**, that evaluates to "A = **`r round(pi * r^2, 2)`** and C = **`r round(2 * pi * r, 2)`**".
 
-Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1); see [`R/mock_data.R`](https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R) in the GitHub repository for code to generate the mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the `{bookdown}` package. 
+Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1); see [`R/mock_data.R`](https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R) in the GitHub repository for code to generate the mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the `{bookdown}` package.
 
 The average metabolite concentration in our dataset is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
 
@@ -90,22 +90,33 @@ final_data <- rbind(df1, df2)
 
 Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average metabolite concentration is **`r round(mean(final_data$conc), 2)`** (range: **`r paste(min(final_data$conc), max(final_data$conc), sep = ' to ')`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. The concentration distribution for each group is shown graphically in Figure \@ref(fig:plot-data).
 
+```{r plot-function}
+# create a box-plot with overlaid points
+create_plot <- function(mytable) {
+  p <- mytable %>% 
+    ggplot(aes(x = class, y = conc, fill = class, color = class)) +
+    geom_boxplot(outlier.shape = NA, alpha = 0.2) +
+    ggbeeswarm::geom_quasirandom(width = 0.25) + 
+    xlab("") +
+    ylab("Metabolite concentration") + 
+    theme_minimal() +
+    theme(legend.position = "none")
+  p
+}
+```
+
 ```{r plot-data, fig.cap="Metabolite concentration of clinical trial subjects", fig.height=3, fig.width=4}
 # plot the data
-p <- final_data %>% 
-  ggplot(aes(x = class, y = conc, fill = class, color = class)) +
-  geom_boxplot(outlier.shape = NA, alpha = 0.2) +
-  ggbeeswarm::geom_quasirandom(width = 0.25) + 
-  xlab("") +
-  ylab("Metabolite concentration") + 
-  theme_minimal() +
-  theme(legend.position = "none")
-p
+create_plot(final_data)
+```
+
+```{r get-child, child="child_doc.Rmd"}
+
 ```
 
 # Code {#code}
 
-The following code was used to load, merge, and plot the (simulated) clinical trial data:
+The following code was used to load, merge, and plot the (simulated) clinical trial data in Figure \@ref(fig:plot-data):
 
 ```{r show-code-1, echo=TRUE, eval=FALSE, ref.label='load-libraries'}
 ```
@@ -119,7 +130,10 @@ The following code was used to load, merge, and plot the (simulated) clinical tr
 ```{r show-code-4, echo=TRUE, eval=FALSE, ref.label='combine-tables'}
 ```
 
-```{r show-code-5, echo=TRUE, eval=FALSE, ref.label='plot-data'}
+```{r show-code-5, echo=TRUE, eval=FALSE, ref.label='plot-function'}
+```
+
+```{r show-code-6, echo=TRUE, eval=FALSE, ref.label='plot-data'}
 ```
 
 ```{r make_3col_table}
@@ -153,6 +167,11 @@ knitr::kable(make_3col_table(df1), booktabs = TRUE,
 
 knitr::kable(make_3col_table(df2), booktabs = TRUE,
              caption = "New subject data")
+```
+
+```{r show-table-3}
+knitr::kable(make_3col_table(df3), booktabs = TRUE,
+             caption = "Third subject data")
 ```
 
 # Colophon
