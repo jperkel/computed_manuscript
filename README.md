@@ -12,9 +12,11 @@ This repository, created to accompany an in-development article at [*Nature maga
 
 You can test-drive this repository without installing anything using the free and open-source [Binder](https://mybinder.org/), which allows users to [recreate computational environments](https://www.nature.com/articles/d41586-019-03366-x) in the cloud. Click the 'Launch Binder' button ([![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jperkel/computed_manuscript/main?urlpath=rstudio)) to launch RStudio in your web browser, including all required libraries. (It may take a few minutes to start.)
 
-Once RStudio is running, select `computed_manuscript.Rmd` from the file pane in the bottom right. Feel free to modify it, then click 'Knit' in the toolbar at the top of the main window. It will take a few minutes, as the PDF-rendering engine needs to download and install a few files, but the result will be a newly formatted version of `computed_manuscript.pdf`.
+Once RStudio is running, select `computed_manuscript.Rmd` from the file pane in the bottom right. Feel free to modify it, then click 'Knit' in the toolbar at the top of the main window. It will take a few minutes, as the PDF-rendering engine needs to download and install a few files, but the result will be a newly formatted version of `computed_manuscript.pdf`. (You can select other output formats by clicking the down-arrow next to the Knit button.)
 
-Note, if you get a pop-up window saying that a new window failed to open, click cancel, then select `computed_manuscripts.pdf` in the file window at bottom right to view it.
+Note: be sure to wait until the PDF-rendering step completes before attempting to open the PDF. If the 'Render' tab at the bottom of the RStudio window has a red 'stop-sign' icon at the top right, it's still working. 
+
+If you see a pop-up window saying that an external browser window failed to open, click cancel, then select `computed_manuscripts.pdf` in the file window at bottom right to view it.
 
 ## Advanced: Try it on your own computer:
 
