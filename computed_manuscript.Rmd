@@ -5,12 +5,12 @@ titlerunning: Example computed manuscript
 date: "`r format(Sys.time(), '%d %b %Y %H:%M:%S %Z')`"
 author: "Jeffrey M. Perkel, Technology Editor, Nature"
 output:
-  bookdown::html_document2: default
-  pdf_document: default
-  bookdown::word_document2: default
   bookdown::pdf_book:
     base_format: rticles::springer_article
     extra_dependencies: booktabs
+  pdf_document: default
+  bookdown::html_document2: default
+  bookdown::word_document2: default
 abstract: "A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown}
   and {Rticles} packages were used to output the text in Springer Nature's desired
   manuscript format. \n"
