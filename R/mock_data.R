@@ -1,7 +1,8 @@
 # create a mock clinical trial dataset
 # input: n -- number of subjects
-build_mock_dataset <- function(n) {
-  subjID <- paste0("ID_", 1:n)
+#        start -- integer value for the first subject ID (eg, for ID_101: 101)
+build_mock_dataset <- function(n, start=1) {
+  subjID <- paste0("ID_", start:((start+n)-1))
   # generate random #s between 0 and 9
   tmp <- floor(runif(n, min = 0, max = 10))
   # assign those numbers to any of 3 subject groups

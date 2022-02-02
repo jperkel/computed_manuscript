@@ -5,12 +5,12 @@ titlerunning: Example computed manuscript
 date: "`r format(Sys.time(), '%d %b %Y %H:%M:%S %Z')`"
 author: "Jeffrey M. Perkel, Technology Editor, Nature"
 output:
+  bookdown::html_document2: default
+  pdf_document: default
+  bookdown::word_document2: default
   bookdown::pdf_book:
     base_format: rticles::springer_article
     extra_dependencies: booktabs
-  pdf_document: default
-  bookdown::word_document2: default
-  bookdown::html_document2: default
 abstract: "A mock computed manuscript created in RStudio using {Rmarkdown}. The {Bookdown}
   and {Rticles} packages were used to output the text in Springer Nature's desired
   manuscript format. \n"
@@ -70,9 +70,9 @@ You could write "A = `` `r
 pi * r^2` `` and C = `` `r
 2 * pi * r` ``". Plugging in the radius *r* = **`r r`**, that evaluates to "A = **`r round(pi * r^2, 2)`** and C = **`r round(2 * pi * r, 2)`**".
 
-Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1); see [`R/mock_data.R`](https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R) in the GitHub repository for code to generate the mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the `{bookdown}` package.
+Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have **`r nrow(df1)`** (simulated) subjects in our study (see Table \@ref(tab:show-table-1); see [`R/mock_data.R`](https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R) in the GitHub repository for code to generate a mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the `{bookdown}` package.
 
-The average metabolite concentration in our dataset is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
+The average metabolite concentration in this dataset is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
 
 ```{r new-data}
 # read new dataset
@@ -81,14 +81,14 @@ df2 <- read_csv('data/example-data-2.csv')
 
 ## Incorporating new data {#sec:2}
 
-Now suppose we get another tranche of data (Table \@ref(tab:show-table-2)). There are **`r nrow(df2)`** subjects in this new dataset. Their average concentration is **`r round(mean(df2$conc), 2)`** (range: **`r paste(min(df2$conc), max(df2$conc), sep = ' to ')`**).
+Now suppose we get another tranche of data (Table \@ref(tab:show-table-2)). There are **`r nrow(df2)`** subjects in this new dataset, with an average concentration of **`r round(mean(df2$conc), 2)`** (range: **`r paste(min(df2$conc), max(df2$conc), sep = ' to ')`**).
 
 ```{r combine-tables}
 # merge datasets
 final_data <- rbind(df1, df2)
 ```
 
-Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects. The revised average metabolite concentration is **`r round(mean(final_data$conc), 2)`** (range: **`r paste(min(final_data$conc), max(final_data$conc), sep = ' to ')`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. The concentration distribution for each group is shown graphically in Figure \@ref(fig:plot-data).
+Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects with an average metabolite concentration of **`r round(mean(final_data$conc), 2)`** (range: **`r paste(min(final_data$conc), max(final_data$conc), sep = ' to ')`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. The concentration distribution for each group in this joint dataset is shown graphically in Figure \@ref(fig:plot-data-1).
 
 ```{r plot-function}
 # create a box-plot with overlaid points
@@ -105,18 +105,18 @@ create_plot <- function(mytable) {
 }
 ```
 
-```{r plot-data, fig.cap="Metabolite concentration of clinical trial subjects", fig.height=3, fig.width=4}
+```{r plot-data-1, fig.cap="Metabolite concentration of clinical trial subjects", fig.height=3, fig.width=4}
 # plot the data
 create_plot(final_data)
 ```
 
 ```{r get-child, child="child_doc.Rmd"}
-
+# import the text from child_doc.Rmd
 ```
 
 # Code {#code}
 
-The following code was used to load, merge, and plot the (simulated) clinical trial data in Figure \@ref(fig:plot-data):
+The following code was used to load, merge, and plot the (simulated) clinical trial data in Figure \@ref(fig:plot-data-1):
 
 ```{r show-code-1, echo=TRUE, eval=FALSE, ref.label='load-libraries'}
 ```
@@ -133,14 +133,15 @@ The following code was used to load, merge, and plot the (simulated) clinical tr
 ```{r show-code-5, echo=TRUE, eval=FALSE, ref.label='plot-function'}
 ```
 
-```{r show-code-6, echo=TRUE, eval=FALSE, ref.label='plot-data'}
+```{r show-code-6, echo=TRUE, eval=FALSE, ref.label='plot-data-1'}
 ```
 
 ```{r make_3col_table}
 # a generic function to print an arbitrary table 3 cols wide
 make_3col_table <- function(mytable) {
   input_rows <- nrow(mytable)
-  # ceiling returns input_rows/3, rounded to the next highest value if it's a fraction
+  # final_rows is the number of rows in the final table -- ie, nrow(mytable)/3
+  # ceiling returns input_rows/3, rounded up to the nearest integer if it's a fraction
   final_rows <- ceiling(input_rows / 3) 
   # if input_rows is not evenly divisible by 3, pad with extra rows
   if (input_rows %% 3) {
@@ -166,12 +167,12 @@ knitr::kable(make_3col_table(df1), booktabs = TRUE,
 ```{r show-table-2}
 
 knitr::kable(make_3col_table(df2), booktabs = TRUE,
-             caption = "New subject data")
+             caption = "Second batch of subject data")
 ```
 
 ```{r show-table-3}
 knitr::kable(make_3col_table(df3), booktabs = TRUE,
-             caption = "Third subject data")
+             caption = "Third batch of subject data")
 ```
 
 # Colophon
