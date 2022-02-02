@@ -163,7 +163,7 @@ A mock computed manuscript created in RStudio using \{Rmarkdown\}. The \{Bookdow
 
 Several platforms for creating such documents exist.\textsuperscript{5} Typically, these documents interleave code and text `blocks' to build a computational narrative. But some, including \href{https://rmarkdown.rstudio.com/}{R Markdown}, \href{https://www.observablehq.com}{Observable}, and the \href{https://jupyterbook.org/intro.html}{Jupyter Book} extension to the Jupyter ecosystem, also allow authors to include and execute code ``inline'' -- that is, within the text itself.
 
-This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at \textbf{02 Feb 2022 10:28:23 MST} and calls the following R packages: \texttt{\{tidyverse\}} ver. \textbf{1.3.0}, \texttt{\{ggbeeswarm\}} ver. \textbf{0.6.0} and \texttt{\{bookdown\}} ver. \textbf{0.24}.
+This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the `killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at \textbf{02 Feb 2022 14:04:10 MST} and calls the following R packages: \texttt{\{tidyverse\}} ver. \textbf{1.3.0}, \texttt{\{ggbeeswarm\}} ver. \textbf{0.6.0} and \texttt{\{bookdown\}} ver. \textbf{0.24}.
 
 In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (A JavaScript version is available at \url{https://observablehq.com/d/7a08166446057936}.)
 
@@ -181,38 +181,31 @@ Rather than analyzing those data and then copying the results into our manuscrip
 
 You could write ``A = \texttt{\textasciigrave{}r\ pi\ *\ r\^{}2\textasciigrave{}} and C = \texttt{\textasciigrave{}r\ 2\ *\ pi\ *\ r\textasciigrave{}}''. Plugging in the radius \emph{r} = \textbf{10}, that evaluates to ``A = \textbf{314.16} and C = \textbf{62.83}''.
 
-Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}; see \href{https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R}{\texttt{R/mock\_data.R}} in the GitHub repository for code to generate the mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the \texttt{\{bookdown\}} package.
+Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have \textbf{99} (simulated) subjects in our study (see Table \ref{tab:show-table-1}; see \href{https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R}{\texttt{R/mock\_data.R}} in the GitHub repository for code to generate a mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the \texttt{\{bookdown\}} package.
 
-The average metabolite concentration in our dataset is \textbf{185.36} (range: \textbf{78 to 298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
+The average metabolite concentration in this dataset is \textbf{185.36} (range: \textbf{78 to 298}). We have \textbf{32} subjects in Group 1, \textbf{43} subjects in Group 2, and \textbf{24} in Group 3. (The numbers in \textbf{bold face type} throughout this document are computed values.)
 
 \hypertarget{sec:2}{%
 \subsection{Incorporating new data}\label{sec:2}}
 
-Now suppose we get another tranche of data (Table \ref{tab:show-table-2}). There are \textbf{60} subjects in this new dataset. Their average concentration is \textbf{185.13} (range: \textbf{77 to 299}).
+Now suppose we get another tranche of data (Table \ref{tab:show-table-2}). There are \textbf{60} subjects in this new dataset, with an average concentration of \textbf{185.13} (range: \textbf{77 to 299}).
 
-Combining the two datasets, we have a total of \textbf{159} subjects. The revised average metabolite concentration is \textbf{185.28} (range: \textbf{77 to 299}). We now have \textbf{55} subjects in Group 1, \textbf{60} subjects in Group 2, and \textbf{44} in Group 3. The concentration distribution for each group is shown graphically in Figure \ref{fig:plot-data}.
+Combining the two datasets, we have a total of \textbf{159} subjects with an average metabolite concentration of \textbf{185.28} (range: \textbf{77 to 299}). We now have \textbf{55} subjects in Group 1, \textbf{60} in Group 2, and \textbf{44} in Group 3. The concentration distribution for each group in this joint dataset is shown graphically in Figure \ref{fig:plot-data-1}.
 
 \begin{figure}
 \centering
-\includegraphics{computed_manuscript_files/figure-latex/plot-data-1.pdf}
-\caption{\label{fig:plot-data}Metabolite concentration of clinical trial subjects}
+\includegraphics{computed_manuscript_files/figure-latex/plot-data-1-1.pdf}
+\caption{\label{fig:plot-data-1}Metabolite concentration of clinical trial subjects}
 \end{figure}
 
-\hypertarget{incorporating-a-child-document}{%
-\subsection{Incorporating a child document}\label{incorporating-a-child-document}}
+\hypertarget{importing-a-child-document}{%
+\subsection{Importing a child document}\label{importing-a-child-document}}
 
-Authors can break long manuscripts into more manageable pieces by using the R Markdown \texttt{child} option. The text in this section is pulled in from a second file, \texttt{child\_doc.Rmd}, and inserted into the final document. Citations that are created in the child automatically get inserted into the final document, like so: here's a reference for the \href{https://bookdown.org/yihui/rmarkdown-cookbook/}{R Markdown Cookbook}.\textsuperscript{6}
+Authors can break long manuscripts into more manageable pieces by placing each chapter or section in their own Markdown file and using the R Markdown \texttt{child} option. Though most of the text (and code) in this document is contained in the file \texttt{computed\_manuscript.Rmd}, the text for this section comes from \texttt{child\_doc.Rmd}. Citations that are created in the child automatically get inserted into the final document, making it possible to create a single, unified bibliography. For instance, here's a reference for the \href{https://bookdown.org/yihui/rmarkdown-cookbook/}{R Markdown Cookbook}.\textsuperscript{6}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# number of samples in our new dataset}
-\NormalTok{samples }\OtherTok{\textless{}{-}} \DecValTok{50}
-\end{Highlighting}
-\end{Shaded}
+In this child document, we'll add a third set of numbers to our growing dataset (Table \ref{tab:show-table-3}; note that the table, figure and section numbering in this child document matches that of the larger manuscript).
 
-Using the \texttt{build\_mock\_dataset()} function in the file \texttt{R/mock\_data.R}, we can create and add a third set of numbers to our growing dataset. By changing the \texttt{samples} value in the code cell above, you can make this dataset as big as you'd like, but for now, it contains \textbf{50} samples.
-
-These final data are shown in Table \ref{tab:show-table-3}. Folding them into our existing dataset gives us \textbf{209} subjects: \textbf{73} in Group 1, \textbf{70} in Group 2, and \textbf{66} in Group 3. The new concentration distribution is shown graphically in Figure \ref{fig:plot-data-2}.
+The new dataset describes \textbf{50} samples. Folding them into our existing data gives us \textbf{209} subjects, with \textbf{69} in Group 1, \textbf{74} in Group 2, and \textbf{66} in Group 3. The new concentration distribution is shown graphically in Figure \ref{fig:plot-data-2}.
 
 \begin{figure}
 \centering
@@ -223,7 +216,7 @@ These final data are shown in Table \ref{tab:show-table-3}. Folding them into ou
 \hypertarget{code}{%
 \section{Code}\label{code}}
 
-The following code was used to load, merge, and plot the (simulated) clinical trial data in Figure \ref{fig:plot-data}:
+The following code was used to load, merge, and plot the (simulated) clinical trial data in Figure \ref{fig:plot-data-1}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -332,7 +325,7 @@ ID\_33 & Group 2 & 241 & | & ID\_66 & Group 2 & 129 & | & ID\_99 & Group 2 & 86\
 
 \begin{table}
 
-\caption{\label{tab:show-table-2}New subject data}
+\caption{\label{tab:show-table-2}Second batch of subject data}
 \centering
 \begin{tabular}[t]{llrlllrlllr}
 \toprule
@@ -367,32 +360,32 @@ ID\_119 & Group 3 & 258 & | & ID\_139 & Group 1 & 108 & | & ID\_159 & Group 2 & 
 
 \begin{table}
 
-\caption{\label{tab:show-table-3}Third subject data}
+\caption{\label{tab:show-table-3}Third batch of subject data}
 \centering
 \begin{tabular}[t]{lllllllllll}
 \toprule
 ID & Class & Conc & | & ID & Class & Conc & | & ID & Class & Conc\\
 \midrule
-ID\_1 & Group 3 & 245 & | & ID\_18 & Group 3 & 237 & | & ID\_35 & Group 3 & 125\\
-ID\_2 & Group 3 & 214 & | & ID\_19 & Group 3 & 115 & | & ID\_36 & Group 2 & 103\\
-ID\_3 & Group 2 & 270 & | & ID\_20 & Group 1 & 226 & | & ID\_37 & Group 2 & 87\\
-ID\_4 & Group 3 & 152 & | & ID\_21 & Group 1 & 284 & | & ID\_38 & Group 2 & 275\\
-ID\_5 & Group 1 & 164 & | & ID\_22 & Group 3 & 269 & | & ID\_39 & Group 2 & 223\\
+ID\_160 & Group 2 & 210 & | & ID\_177 & Group 2 & 288 & | & ID\_194 & Group 3 & 123\\
+ID\_161 & Group 3 & 107 & | & ID\_178 & Group 1 & 262 & | & ID\_195 & Group 2 & 212\\
+ID\_162 & Group 2 & 262 & | & ID\_179 & Group 2 & 217 & | & ID\_196 & Group 1 & 99\\
+ID\_163 & Group 1 & 215 & | & ID\_180 & Group 3 & 87 & | & ID\_197 & Group 3 & 264\\
+ID\_164 & Group 1 & 220 & | & ID\_181 & Group 3 & 266 & | & ID\_198 & Group 2 & 279\\
 \addlinespace
-ID\_6 & Group 1 & 188 & | & ID\_23 & Group 3 & 225 & | & ID\_40 & Group 1 & 180\\
-ID\_7 & Group 3 & 165 & | & ID\_24 & Group 3 & 276 & | & ID\_41 & Group 2 & 297\\
-ID\_8 & Group 3 & 153 & | & ID\_25 & Group 3 & 258 & | & ID\_42 & Group 1 & 138\\
-ID\_9 & Group 1 & 212 & | & ID\_26 & Group 2 & 252 & | & ID\_43 & Group 3 & 189\\
-ID\_10 & Group 1 & 183 & | & ID\_27 & Group 1 & 282 & | & ID\_44 & Group 3 & 138\\
+ID\_165 & Group 3 & 288 & | & ID\_182 & Group 3 & 79 & | & ID\_199 & Group 2 & 126\\
+ID\_166 & Group 3 & 287 & | & ID\_183 & Group 1 & 152 & | & ID\_200 & Group 1 & 276\\
+ID\_167 & Group 3 & 213 & | & ID\_184 & Group 3 & 223 & | & ID\_201 & Group 3 & 213\\
+ID\_168 & Group 1 & 84 & | & ID\_185 & Group 3 & 118 & | & ID\_202 & Group 2 & 212\\
+ID\_169 & Group 3 & 160 & | & ID\_186 & Group 1 & 214 & | & ID\_203 & Group 1 & 104\\
 \addlinespace
-ID\_11 & Group 1 & 156 & | & ID\_28 & Group 1 & 255 & | & ID\_45 & Group 3 & 221\\
-ID\_12 & Group 3 & 99 & | & ID\_29 & Group 1 & 294 & | & ID\_46 & Group 3 & 203\\
-ID\_13 & Group 1 & 299 & | & ID\_30 & Group 3 & 107 & | & ID\_47 & Group 1 & 266\\
-ID\_14 & Group 1 & 238 & | & ID\_31 & Group 2 & 123 & | & ID\_48 & Group 3 & 298\\
-ID\_15 & Group 3 & 294 & | & ID\_32 & Group 3 & 232 & | & ID\_49 & Group 1 & 206\\
+ID\_170 & Group 2 & 194 & | & ID\_187 & Group 3 & 200 & | & ID\_204 & Group 1 & 199\\
+ID\_171 & Group 1 & 119 & | & ID\_188 & Group 1 & 271 & | & ID\_205 & Group 1 & 272\\
+ID\_172 & Group 3 & 218 & | & ID\_189 & Group 3 & 237 & | & ID\_206 & Group 1 & 86\\
+ID\_173 & Group 2 & 217 & | & ID\_190 & Group 3 & 170 & | & ID\_207 & Group 2 & 181\\
+ID\_174 & Group 3 & 103 & | & ID\_191 & Group 2 & 156 & | & ID\_208 & Group 3 & 114\\
 \addlinespace
-ID\_16 & Group 1 & 170 & | & ID\_33 & Group 2 & 202 & | & ID\_50 & Group 1 & 101\\
-ID\_17 & Group 3 & 96 & | & ID\_34 & Group 2 & 263 & | &  &  & \\
+ID\_175 & Group 3 & 94 & | & ID\_192 & Group 2 & 288 & | & ID\_209 & Group 2 & 248\\
+ID\_176 & Group 3 & 270 & | & ID\_193 & Group 3 & 193 & | &  &  & \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -400,7 +393,7 @@ ID\_17 & Group 3 & 96 & | & ID\_34 & Group 2 & 263 & | &  &  & \\
 \hypertarget{colophon}{%
 \section{Colophon}\label{colophon}}
 
-This manuscript was built at \textbf{02 Feb 2022 10:28:24 MST} using the following computational environment and dependencies:
+This manuscript was built at \textbf{02 Feb 2022 14:04:11 MST} using the following computational environment and dependencies:
 
 \begin{verbatim}
 ## R version 4.0.4 (2021-02-15)
@@ -444,7 +437,7 @@ This manuscript was built at \textbf{02 Feb 2022 10:28:24 MST} using the followi
 The current Git commit details are:
 
 \begin{verbatim}
-## [10dc11d] 2022-02-02: Add a child document.
+## [8d57aa4] 2022-02-02: Create a third dataset for the child doc. Add 'start' parameter to build_mock_dataset()
 \end{verbatim}
 
 \hypertarget{references}{%
