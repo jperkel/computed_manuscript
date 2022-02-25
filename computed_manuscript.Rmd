@@ -44,7 +44,7 @@ Several platforms for creating such documents exist.[@perkel2021] Typically, the
 
 This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the 'killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at **`r format(Sys.time(), "%d %b %Y %H:%M:%S %Z")`** and calls the following R packages: `{tidyverse}` ver. **`r packageVersion("tidyverse")`**, `{ggbeeswarm}` ver. **`r packageVersion("ggbeeswarm")`** and `{bookdown}` ver. **`r packageVersion("bookdown")`**.
 
-In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (A JavaScript version is available at <https://observablehq.com/d/7a08166446057936>.)
+In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (An Observable version is [also available](https://observablehq.com/@jperkel/example-executable-observable-notebook).)
 
 # Results {#results}
 
@@ -185,7 +185,7 @@ sessionInfo()
 
 The current Git commit details are:
 
-```{r}
+```{r git-info}
 # per Marwick, this line only executed if the user has installed {git2r} 
 if ("git2r" %in% installed.packages() & git2r::in_repository(path = '.'))
   git2r::commits(here::here())[[1]]
