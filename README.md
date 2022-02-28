@@ -6,7 +6,7 @@
 
 <!-- badges: end -->
 
-This repository, created to accompany an in-development article at [*Nature* magazine](https://www.nature.com), demonstrates a fully executable manuscript. The text of the manuscript is contained in the files `computed_manuscript.Rmd` and `child_doc.Rmd`; `computed_manuscript.pdf`, `computed_manuscript.docx` and `computed_manuscript.html` contain the documents rendered in PDF, Microsoft Word, and HTML format, respectively. (See https://observablehq.com/@jperkel/example-executable-observable-notebook for a comparable example written using Observable.)
+This repository, created to accompany an article published 28 Feb 2022 at [*Nature* magazine](https://www.nature.com/articles/d41586-022-00563-z), demonstrates a fully executable manuscript. The text of the manuscript is contained in the files `computed_manuscript.Rmd` and `child_doc.Rmd`; `computed_manuscript.pdf`, `computed_manuscript.docx` and `computed_manuscript.html` contain the documents rendered in PDF, Microsoft Word, and HTML format, respectively. (See https://observablehq.com/@jperkel/example-executable-observable-notebook for a comparable example written using Observable.)
 
 ## Easy: No-installation test-drive 
 
