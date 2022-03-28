@@ -40,7 +40,7 @@ install.packages(c("tidyverse","bookdown","rticles","here","ggbeeswarm"))
 6.  OPTIONAL: To create PDF output, you'll need LaTeX. If it's not already installed, type the following in the console window:
 
 ```
-install.packages("tidytex")
+install.packages("tinytex")
 tinytex::install_tinytex(version = "2022.01")
 ```
 
